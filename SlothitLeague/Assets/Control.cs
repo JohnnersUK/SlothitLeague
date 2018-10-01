@@ -64,7 +64,7 @@ public class Control : MonoBehaviour {
 
         if (Input.GetKey(Back))
         {
-            if (speed < (-maxSpeed / 2))
+            if (speed > (-maxSpeed / 2))
             {
                 reversing = true;
                 speed -= acceleration;
