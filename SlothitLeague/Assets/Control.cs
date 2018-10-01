@@ -8,12 +8,14 @@ public class Control : MonoBehaviour {
     public KeyCode Left;
     public KeyCode Right;
     public KeyCode Back;
+    public float turnspeed;
     public float acceleration;
     public float deceleration;
     public float maxSpeed;
 
     float speed;
     bool reversing = false;
+    float turnTimer = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +32,7 @@ public class Control : MonoBehaviour {
                 speed += acceleration;
             }
         }
-        else if (speed > 0)
+        else if (speed > 0 && !reversing)
         {
             speed -= deceleration;
         }
@@ -41,19 +43,36 @@ public class Control : MonoBehaviour {
        
 
 
-        if (Input.GetKeyDown(Left))
+        if (Input.GetKey(Left))
         {
-            this.transform.Rotate(new Vector3(0, 0, 15));
+            turnTimer++;
+            if (turnTimer > 100 / turnspeed)
+            {
+                this.transform.Rotate(new Vector3(0, 0, 15));
+                turnTimer = 0;
+            }
         }
-        if(Input.GetKeyDown(Right))
+        if(Input.GetKey(Right))
         {
-            transform.Rotate(new Vector3(0, 0, -15));
+            turnTimer++;
+            if (turnTimer > 100 / turnspeed)
+            {
+                transform.Rotate(new Vector3(0, 0, -15));
+                turnTimer = 0;
+            }
         }
 
         if (Input.GetKey(Back))
         {
-            reversing = true;
-            speed -= acceleration;
+            if (speed < (-maxSpeed / 2))
+            {
+                reversing = true;
+                speed -= acceleration;
+            }
+        }
+        else if (speed < 0 && reversing)
+        {
+            speed += deceleration;
         }
         if (speed > 0 && reversing)
         {
