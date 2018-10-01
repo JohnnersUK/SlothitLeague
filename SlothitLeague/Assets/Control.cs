@@ -19,8 +19,8 @@ public class Control : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Screen.SetResolution(160, 192, true);
+    }
 	
 	// Update is called once per frame
 	void Update () {
