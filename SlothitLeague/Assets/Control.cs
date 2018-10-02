@@ -21,6 +21,8 @@ public class Control : MonoBehaviour {
 
     public bool goingForward;
 
+    public bool goalRight;
+
 	// Use this for initialization
 	void Start () {
 		
