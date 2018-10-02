@@ -55,4 +55,9 @@ public class Jump_Script : MonoBehaviour {
             transform.localScale -= transform.localScale * jumpRate;
         }
     }
+
+    public bool getGrounded()
+    {
+        return grounded;
+    }
 }
