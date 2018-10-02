@@ -100,4 +100,9 @@ public class Control : MonoBehaviour {
     {
         CanMove = x;
     }
+
+    public int GetSpeed()
+    {
+        return (int) speed;
+    }
 }

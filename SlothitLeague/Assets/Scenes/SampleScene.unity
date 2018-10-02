@@ -430,6 +430,7 @@ MonoBehaviour:
   acceleration: 0.1
   deceleration: 0.2
   maxSpeed: 5
+  goingForward: 0
 --- !u!114 &1700769139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,7 +458,10 @@ MonoBehaviour:
   Select: 32
   Aimer: {fileID: 1470758006}
   Ball: {fileID: 1824579368}
+  hitMoveToDist: 1
   timeToMoveAim: 0.05
+  LeftLimit: -6
+  RightLimit: 6
 --- !u!61 &1700769141
 BoxCollider2D:
   m_ObjectHideFlags: 0
