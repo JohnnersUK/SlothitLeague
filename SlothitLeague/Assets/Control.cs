@@ -19,7 +19,10 @@ public class Control : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Screen.SetResolution(160, 192, true);
+        //Screen.SetResolution(256, 192, true);
+        //Screen.SetResolution(640, 480, true);
+        //Screen.SetResolution(512, 384, true);
+        Screen.SetResolution(342, 256, true);
     }
 	
 	// Update is called once per frame
