@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,7 +505,12 @@ MonoBehaviour:
   player_controllers:
   - {fileID: 1700769138}
   - {fileID: 2129963056}
-  goals: []
+  jump_scripts:
+  - {fileID: 1700769139}
+  - {fileID: 2129963055}
+  goals:
+  - {fileID: 2051896933}
+  - {fileID: 2029696821}
   score_manager: {fileID: 1632242778}
 --- !u!50 &575991342
 Rigidbody2D:
@@ -540,6 +545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   all_targets:
   - {fileID: 1647502360}
+  - {fileID: 1566048438}
 --- !u!1 &755463066
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,6 +679,7 @@ Transform:
   - {fileID: 229875952}
   - {fileID: 1002866196}
   - {fileID: 1647502360}
+  - {fileID: 1566048438}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -751,6 +758,34 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1171146524}
   m_CullTransparentMesh: 0
+--- !u!1 &1566048437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1566048438}
+  m_Layer: 0
+  m_Name: Ball2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1566048438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1566048437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1107988715}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1632242776
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1647502360}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: Ball1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -825,7 +860,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1647502359}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107988715}
@@ -1039,6 +1074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxJumpVel: 10
   jumpKey: 32
+  sprite_renderer: {fileID: 1700769136}
 --- !u!114 &1700769140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,6 +1506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxJumpVel: 10
   jumpKey: 303
+  sprite_renderer: {fileID: 2129963057}
 --- !u!114 &2129963056
 MonoBehaviour:
   m_ObjectHideFlags: 0

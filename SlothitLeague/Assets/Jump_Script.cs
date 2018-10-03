@@ -13,6 +13,8 @@ public class Jump_Script : MonoBehaviour {
 
     bool grounded;
 
+    [SerializeField] SpriteRenderer sprite_renderer;
+
     // Use this for initialization
     void Start ()
     {
@@ -32,11 +34,13 @@ public class Jump_Script : MonoBehaviour {
         {
             grounded = false;
             processJump();
+            sprite_renderer.color = new Color(sprite_renderer.color.r, sprite_renderer.color.g, sprite_renderer.color.b, 1.0f);
         }
         else
         {
             grounded = true;
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            sprite_renderer.color = new Color(sprite_renderer.color.r, sprite_renderer.color.g, sprite_renderer.color.b, 0.5f);
         }
 
         jTime -= 1 * Time.deltaTime;
