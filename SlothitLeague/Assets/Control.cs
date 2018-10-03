@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Control : MonoBehaviour {
+public class Control : MonoBehaviour
+{
 
     public KeyCode Forward;
     public KeyCode Left;
@@ -16,6 +17,10 @@ public class Control : MonoBehaviour {
     float speed;
     bool reversing = false;
     float turnTimer = 0;
+    
+    // Use this for initialization
+    void Start()
+    {
 
 	// Use this for initialization
 	void Start () {
@@ -39,11 +44,11 @@ public class Control : MonoBehaviour {
         {
             speed -= deceleration * Time.deltaTime;
         }
-        if (speed <0 && !reversing)
+        if (speed < 0 && !reversing)
         {
             speed = 0;
         }
-       
+
 
 
         if (Input.GetKey(Left))
@@ -55,7 +60,7 @@ public class Control : MonoBehaviour {
                 turnTimer = 0;
             }
         }
-        if(Input.GetKey(Right))
+        if (Input.GetKey(Right))
         {
             turnTimer += Time.deltaTime * 100;
             if (turnTimer > 100 / turnspeed)
@@ -86,5 +91,10 @@ public class Control : MonoBehaviour {
             speed = 0;
         }
         this.transform.position += transform.up * speed * Time.deltaTime;
+    }
+
+    public void resetSpeed()
+    {
+        speed = 0;
     }
 }
