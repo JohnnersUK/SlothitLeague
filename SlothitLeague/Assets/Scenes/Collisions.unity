@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 44593492}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107988715}
@@ -506,8 +506,8 @@ MonoBehaviour:
   - {fileID: 1700769138}
   - {fileID: 2129963056}
   jump_scripts:
-  - {fileID: 1700769139}
-  - {fileID: 2129963055}
+  - {fileID: 0}
+  - {fileID: 0}
   goals:
   - {fileID: 2051896933}
   - {fileID: 2029696821}
@@ -643,7 +643,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1002866195}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107988715}
@@ -780,7 +780,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1566048437}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107988715}
@@ -860,7 +860,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1647502359}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107988715}
@@ -972,10 +972,10 @@ GameObject:
   - component: {fileID: 1700769137}
   - component: {fileID: 1700769136}
   - component: {fileID: 1700769138}
-  - component: {fileID: 1700769139}
   - component: {fileID: 1700769140}
   - component: {fileID: 1700769141}
   - component: {fileID: 1700769142}
+  - component: {fileID: 1700769139}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -1061,20 +1061,26 @@ MonoBehaviour:
   acceleration: 0.1
   deceleration: 0.2
   maxSpeed: 5
---- !u!114 &1700769139
-MonoBehaviour:
+--- !u!50 &1700769139
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1700769135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7da8b97fdb36b42970558e64365faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxJumpVel: 10
-  jumpKey: 32
-  sprite_renderer: {fileID: 1700769136}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &1700769140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,7 +1094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_index: 0
   player_colours:
-  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   m_renderer: {fileID: 1700769136}
 --- !u!61 &1700769141
@@ -1251,7 +1257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_index: 1
   player_colours:
-  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   m_renderer: {fileID: 2029696823}
 --- !u!212 &2029696823
@@ -1369,7 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_index: 0
   player_colours:
-  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   m_renderer: {fileID: 2051896935}
 --- !u!212 &2051896935
@@ -1466,10 +1472,10 @@ GameObject:
   - component: {fileID: 2129963058}
   - component: {fileID: 2129963057}
   - component: {fileID: 2129963056}
-  - component: {fileID: 2129963055}
   - component: {fileID: 2129963054}
   - component: {fileID: 2129963059}
   - component: {fileID: 2129963060}
+  - component: {fileID: 2129963055}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -1490,23 +1496,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_index: 1
   player_colours:
-  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
   m_renderer: {fileID: 2129963057}
---- !u!114 &2129963055
-MonoBehaviour:
+--- !u!50 &2129963055
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2129963053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7da8b97fdb36b42970558e64365faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxJumpVel: 10
-  jumpKey: 303
-  sprite_renderer: {fileID: 2129963057}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &2129963056
 MonoBehaviour:
   m_ObjectHideFlags: 0
