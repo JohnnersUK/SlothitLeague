@@ -23,7 +23,6 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public float LeftLimit;
     public float RightLimit;
 
-
     private Vector3 Target;
     public float speed;
     public bool hit;
@@ -85,14 +84,12 @@ public class BallMoveTowardsTarget : MonoBehaviour
 	        if (end)
 	        {
 	            // SelectEndTimer += Time.deltaTime;
-
 	            SetMoveTarget(Aimer.transform.position);
 
 	            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
 	                player.GetComponent<Control>().SetCanMove(true);
 
-	            DoOnce = true;
-               
+	            DoOnce = true;             
 	            Aimer.SetActive(false);
 	        }
 	    }
@@ -132,46 +129,30 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
             Aimer.SetActive(true);
 
-            if (col.gameObject.GetComponent<Control>().goingForward == false)
-                dir = -dir;
-
             if (dir > 0)
             {
-                if (col.gameObject.GetComponent<Control>().goalRight == true)
+                if (col.gameObject.transform.position.x > transform.position.x)
                 {
                     Aimer.transform.position =
-                        new Vector2(transform.position.x + hitMoveToDist, Aimer.transform.position.y);
-                }
-                else
-                {
-                    Aimer.transform.position =
-                        new Vector2(transform.position.x - hitMoveToDist, Aimer.transform.position.y);
+                            new Vector2(transform.position.x - hitMoveToDist, Aimer.transform.position.y);
                 }
             }
             else
             {
-                if (col.gameObject.GetComponent<Control>().goalRight == false)
-                {
-                    Aimer.transform.position =
-                        new Vector2(transform.position.x - hitMoveToDist, Aimer.transform.position.y);
-                }
-                else
-                {
-                    Aimer.transform.position =
-                        new Vector2(transform.position.x + hitMoveToDist, Aimer.transform.position.y);
-                }
+                Aimer.transform.position =
+                    new Vector2(transform.position.x + hitMoveToDist, Aimer.transform.position.y);
             }
 
-            if (col.transform.position.x > RightLimit)
+            if (Aimer.transform.position.x > RightLimit)
             {
                 Aimer.transform.position =
-                    new Vector2(col.transform.position.x - hitMoveToDist, Aimer.transform.position.y);
+                    new Vector2(RightLimit, Aimer.transform.position.y);
             }
 
-            if (col.transform.position.x < LeftLimit)
+            if (Aimer.transform.position.x < LeftLimit)
             {
                 Aimer.transform.position =
-                    new Vector2(col.transform.position.x + hitMoveToDist, Aimer.transform.position.y);
+                    new Vector2(LeftLimit, Aimer.transform.position.y);
             }
 
             col.gameObject.GetComponent<Control>().SetCanMove(false);
