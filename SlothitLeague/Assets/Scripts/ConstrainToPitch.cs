@@ -29,12 +29,12 @@ public class ConstrainToPitch : MonoBehaviour
             if (player.transform.position.x < constraints[0].x)
             {
                 player.resetSpeed();
-                player.transform.position = new Vector3(player.transform.position.x, constraints[0].x);
+                player.transform.position = new Vector3(constraints[0].x, player.transform.position.y);
             }
             if (player.transform.position.x > constraints[1].x)
             {
                 player.resetSpeed();
-                player.transform.position = new Vector3(player.transform.position.x, constraints[1].x);
+                player.transform.position = new Vector3(constraints[1].x, player.transform.position.y);
             }
             if (player.transform.position.y < constraints[0].y)
             {

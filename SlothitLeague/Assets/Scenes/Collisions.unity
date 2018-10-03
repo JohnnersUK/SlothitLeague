@@ -795,6 +795,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1632242777}
   - component: {fileID: 1632242778}
+  - component: {fileID: 1632242779}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -836,6 +837,24 @@ MonoBehaviour:
   - {fileID: 575991343}
   - {fileID: 2129963060}
   player_controllers:
+  - {fileID: 1700769138}
+  - {fileID: 2129963056}
+--- !u!114 &1632242779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1632242776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f317322fa663e4dbba0dd887873e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constraints:
+  - {x: -6, y: -4}
+  - {x: 6, y: 4}
+  ball: {fileID: 0}
+  players:
   - {fileID: 1700769138}
   - {fileID: 2129963056}
 --- !u!1 &1647502359
@@ -1054,13 +1073,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Forward: 119
-  Left: 97
-  Right: 100
+  Left: 276
+  Right: 275
   Back: 115
   turnspeed: 10
-  acceleration: 0.1
-  deceleration: 0.2
+  acceleration: 3
+  deceleration: 6
   maxSpeed: 5
+  goingForward: 0
+  goalRight: 0
 --- !u!50 &1700769139
 Rigidbody2D:
   serializedVersion: 4
@@ -1531,13 +1552,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Forward: 273
-  Left: 276
-  Right: 275
+  Left: 97
+  Right: 100
   Back: 274
   turnspeed: 10
-  acceleration: 0.1
-  deceleration: 0.2
+  acceleration: 3
+  deceleration: 6
   maxSpeed: 5
+  goingForward: 0
+  goalRight: 0
 --- !u!212 &2129963057
 SpriteRenderer:
   m_ObjectHideFlags: 0
