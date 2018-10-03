@@ -28,6 +28,8 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public float speed;
     public bool hit;
 
+    bool DoOnce;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -82,6 +84,8 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
 	            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
 	                player.GetComponent<Control>().SetCanMove(true);
+
+	            DoOnce = true;
                
 	            Aimer.SetActive(false);
 	        }
@@ -104,7 +108,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && !DoOnce)
         {
             Stop();
 
