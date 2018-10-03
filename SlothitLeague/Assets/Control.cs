@@ -32,12 +32,12 @@ public class Control : MonoBehaviour {
             if (speed < maxSpeed)
             {
                 reversing = false;
-                speed += acceleration;
+                speed += acceleration * Time.deltaTime;
             }
         }
         else if (speed > 0 && !reversing)
         {
-            speed -= deceleration;
+            speed -= deceleration * Time.deltaTime;
         }
         if (speed <0 && !reversing)
         {
@@ -48,7 +48,7 @@ public class Control : MonoBehaviour {
 
         if (Input.GetKey(Left))
         {
-            turnTimer++;
+            turnTimer += Time.deltaTime * 100;
             if (turnTimer > 100 / turnspeed)
             {
                 this.transform.Rotate(new Vector3(0, 0, 15));
@@ -57,7 +57,7 @@ public class Control : MonoBehaviour {
         }
         if(Input.GetKey(Right))
         {
-            turnTimer++;
+            turnTimer += Time.deltaTime * 100;
             if (turnTimer > 100 / turnspeed)
             {
                 transform.Rotate(new Vector3(0, 0, -15));
@@ -67,15 +67,19 @@ public class Control : MonoBehaviour {
 
         if (Input.GetKey(Back))
         {
-            if (speed > (-maxSpeed / 2))
+            if (speed > (-maxSpeed / 2) && speed <= 0)
             {
                 reversing = true;
-                speed -= acceleration;
+                speed -= acceleration * Time.deltaTime;
+            }
+            else if (speed > 0 && !reversing)
+            {
+                speed -= (deceleration * Time.deltaTime) * 2;
             }
         }
         else if (speed < 0 && reversing)
         {
-            speed += deceleration;
+            speed += deceleration * Time.deltaTime;
         }
         if (speed > 0 && reversing)
         {

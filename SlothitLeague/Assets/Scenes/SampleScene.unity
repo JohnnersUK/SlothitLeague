@@ -212,8 +212,8 @@ Camera:
   m_GameObject: {fileID: 534669902}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -519,7 +519,7 @@ Transform:
   m_GameObject: {fileID: 1700769135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -539,7 +539,7 @@ MonoBehaviour:
   Left: 97
   Right: 100
   Back: 115
-  turnspeed: 15
-  acceleration: 0.1
-  deceleration: 0.2
+  turnspeed: 10
+  acceleration: 3
+  deceleration: 6
   maxSpeed: 5
