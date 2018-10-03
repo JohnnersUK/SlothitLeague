@@ -9,10 +9,15 @@ public class Control : MonoBehaviour
     public KeyCode Left;
     public KeyCode Right;
     public KeyCode Back;
+    public KeyCode Btn1;
+
     public float turnspeed;
     public float acceleration;
     public float deceleration;
     public float maxSpeed;
+
+    public float boostForce;
+    int boosts;
 
     float speed;
     bool reversing = false;
@@ -31,6 +36,8 @@ public class Control : MonoBehaviour
         //Screen.SetResolution(512, 384, true);
         Screen.SetResolution(342, 256, true);
         resetSpeed();
+
+        boosts = 3;
     }
 
     // Update is called once per frame
@@ -98,7 +105,23 @@ public class Control : MonoBehaviour
             {
                 speed = 0;
             }
+
+            if (Input.GetKeyUp(Btn1))
+            {
+                if (boosts > 0)
+                {
+                    speed += boostForce;
+                    boosts--;
+                }
+            }
+
+            if (speed > maxSpeed)
+            {
+                speed -= deceleration * Time.deltaTime;
+            }
             this.transform.position += transform.up * speed * Time.deltaTime;
+
+
         }
     }
 
@@ -115,5 +138,14 @@ public class Control : MonoBehaviour
     public void resetSpeed()
     {
         speed = 0;
+    }
+
+    private void OnTriggerEnter2D(Collider2D obj)
+    {
+        if (obj.gameObject.CompareTag("Pickup"))
+        {
+            boosts++;
+            obj.transform.position = new Vector2(100000.0f, 100000.0f);
+        }
     }
 }

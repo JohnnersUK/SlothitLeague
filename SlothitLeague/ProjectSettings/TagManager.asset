@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Goal
+  - Pickup
   layers:
   - Default
   - TransparentFX
