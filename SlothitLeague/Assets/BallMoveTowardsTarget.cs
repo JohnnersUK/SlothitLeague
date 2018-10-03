@@ -30,6 +30,8 @@ public class BallMoveTowardsTarget : MonoBehaviour
     bool done;
     int hits;
 
+    public float normalHitPowerModifier;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -116,6 +118,21 @@ public class BallMoveTowardsTarget : MonoBehaviour
         {
             hit = true;
             done = true;
+
+            if (col.gameObject.tag == "Player")
+            {
+                if (col.gameObject.GetComponent<Control>().GetSpeed() < 1)
+                {
+                    GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
+                                                         normalHitPowerModifier);
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
+                                                         col.gameObject.GetComponent<Control>().GetSpeed() *
+                                                         normalHitPowerModifier);
+                }
+            }
         }
         if (col.gameObject.tag == "Player" && !DoOnce)
         {
