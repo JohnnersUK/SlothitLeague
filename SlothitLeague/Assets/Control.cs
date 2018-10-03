@@ -18,6 +18,12 @@ public class Control : MonoBehaviour
     bool reversing = false;
     float turnTimer = 0;
 
+    private bool CanMove = true;
+
+    public bool goingForward;
+
+    public bool goalRight;
+
 	// Use this for initialization
 	void Start () {
         //Screen.SetResolution(256, 192, true);
@@ -28,6 +34,8 @@ public class Control : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+	  if (CanMove)
+	  {
 		if ( Input.GetKey(Forward))
         {
             if (speed < maxSpeed)
@@ -45,6 +53,16 @@ public class Control : MonoBehaviour
             speed = 0;
         }
 
+	            if (speed < maxSpeed)
+	            {
+	                reversing = false;
+	                speed += acceleration;
+	            }
+	        }
+	        else if (speed > 0 && !reversing)
+	        {
+	            speed -= deceleration;
+	        }
 
 
         if (Input.GetKey(Left))
@@ -87,6 +105,7 @@ public class Control : MonoBehaviour
             speed = 0;
         }
         this.transform.position += transform.up * speed * Time.deltaTime;
+	}
     }
 
     public void resetSpeed()
