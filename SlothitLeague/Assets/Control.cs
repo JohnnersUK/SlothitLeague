@@ -30,82 +30,86 @@ public class Control : MonoBehaviour
         //Screen.SetResolution(640, 480, true);
         //Screen.SetResolution(512, 384, true);
         Screen.SetResolution(342, 256, true);
+        resetSpeed();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	  if (CanMove)
-	  {
-		if ( Input.GetKey(Forward))
-        {
-            if (speed < maxSpeed)
-            {
-                reversing = false;
-                speed += acceleration * Time.deltaTime;
-            }
-        }
-        else if (speed > 0 && !reversing)
-        {
-            speed -= deceleration * Time.deltaTime;
-        }
-        if (speed < 0 && !reversing)
-        {
-            speed = 0;
-        }
 
-	            if (speed < maxSpeed)
-	            {
-	                reversing = false;
-	                speed += acceleration;
-	            }
-	        }
-	        else if (speed > 0 && !reversing)
-	        {
-	            speed -= deceleration;
-	        }
-
-
-        if (Input.GetKey(Left))
+    // Update is called once per frame
+    void Update()
+    {
+        if (CanMove)
         {
-            turnTimer += Time.deltaTime * 100;
-            if (turnTimer > 100 / turnspeed)
+            if (Input.GetKey(Forward))
             {
-                this.transform.Rotate(new Vector3(0, 0, 15));
-                turnTimer = 0;
-            }
-        }
-        if (Input.GetKey(Right))
-        {
-            turnTimer += Time.deltaTime * 100;
-            if (turnTimer > 100 / turnspeed)
-            {
-                transform.Rotate(new Vector3(0, 0, -15));
-                turnTimer = 0;
-            }
-        }
-
-        if (Input.GetKey(Back))
-        {
-            if (speed > (-maxSpeed / 2) && speed <= 0)
-            {
-                reversing = true;
-                speed -= acceleration * Time.deltaTime;
+                goingForward = true;
+                if (speed < maxSpeed)
+                {
+                    reversing = false;
+                    speed += acceleration * Time.deltaTime;
+                }
             }
             else if (speed > 0 && !reversing)
             {
-                speed -= (deceleration * Time.deltaTime) * 2;
+                speed -= deceleration * Time.deltaTime;
             }
+            if (speed < 0 && !reversing)
+            {
+                speed = 0;
+            }
+
+
+
+            if (Input.GetKey(Left))
+            {
+                turnTimer += Time.deltaTime * 100;
+                if (turnTimer > 100 / turnspeed)
+                {
+                    this.transform.Rotate(new Vector3(0, 0, 15));
+                    turnTimer = 0;
+                }
+            }
+            if (Input.GetKey(Right))
+            {
+                turnTimer += Time.deltaTime * 100;
+                if (turnTimer > 100 / turnspeed)
+                {
+                    transform.Rotate(new Vector3(0, 0, -15));
+                    turnTimer = 0;
+                }
+            }
+
+            if (Input.GetKey(Back))
+            {
+                goingForward = false;
+                if (speed > (-maxSpeed / 2) && speed <= 0)
+                {
+                    reversing = true;
+                    speed -= acceleration * Time.deltaTime;
+                }
+                else if (speed > 0 && !reversing)
+                {
+                    speed -= (deceleration * Time.deltaTime) * 2;
+                }
+            }
+            else if (speed < 0 && reversing)
+            {
+                speed += deceleration * Time.deltaTime;
+            }
+            if (speed > 0 && reversing)
+            {
+                speed = 0;
+            }
+            this.transform.position += transform.up * speed * Time.deltaTime;
         }
-        else if (speed < 0 && reversing)
-        {
-            speed += deceleration * Time.deltaTime;
-        }
-        if (speed > 0 && reversing)
-        {
-            speed = 0;
-        }
-        this.transform.position += transform.up * speed * Time.deltaTime;
-	}
+    }
+
+    public void SetCanMove(bool _canMove)
+    {
+        CanMove = _canMove;
+    }
+
+    public int GetSpeed()
+    {
+        return (int)speed;
     }
 
     public void resetSpeed()
