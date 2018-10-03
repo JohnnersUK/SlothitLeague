@@ -17,10 +17,6 @@ public class Control : MonoBehaviour
     float speed;
     bool reversing = false;
     float turnTimer = 0;
-    
-    // Use this for initialization
-    void Start()
-    {
 
 	// Use this for initialization
 	void Start () {
