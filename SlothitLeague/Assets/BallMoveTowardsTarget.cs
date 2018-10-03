@@ -27,8 +27,9 @@ public class BallMoveTowardsTarget : MonoBehaviour
     private Vector3 Target;
     public float speed;
     public bool hit;
-
     bool DoOnce;
+    bool done;
+    int hits;
 
 	// Use this for initialization
 	void Start ()
@@ -41,9 +42,14 @@ public class BallMoveTowardsTarget : MonoBehaviour
 	{
 	    if (!hit)
 	    {
-	        transform.position = Vector3.Lerp(transform.position, Target, Time.deltaTime * speed);
-	        if (transform.position == Target)
-	            hit = true;
+            if (!done)
+            {
+                transform.position = Vector3.Lerp(transform.position, Target, Time.deltaTime * speed);
+                if (hits > 1)
+                {
+                    done = true;
+                }
+            }
 	    }
 	    else
 	    {
@@ -126,6 +132,12 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        hits++;
+        if (hits > 1)
+        {
+            hit = true;
+            done = true;
+        }
         if (col.gameObject.tag == "Player" && !DoOnce)
         {
             Stop();
