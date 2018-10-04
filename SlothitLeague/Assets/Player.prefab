@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 114750432014873854}
   - component: {fileID: 61875417223634420}
   - component: {fileID: 50749247245637232}
+  - component: {fileID: 114989211050174706}
+  - component: {fileID: 114981882387651782}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -109,6 +111,32 @@ MonoBehaviour:
   maxSpeed: 5
   goingForward: 0
   goalRight: 0
+--- !u!114 &114981882387651782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100890187158810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c30ea0c87852804ba77e10a5ab5769e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  all_targets: []
+--- !u!114 &114989211050174706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100890187158810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67d91928c6fef34082bc412ef63754c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_index: 0
+  player_colours: []
+  m_renderer: {fileID: 0}
 --- !u!212 &212883943001078000
 SpriteRenderer:
   m_ObjectHideFlags: 1

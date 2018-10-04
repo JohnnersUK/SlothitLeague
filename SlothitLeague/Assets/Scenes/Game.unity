@@ -282,11 +282,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114913005325966402, guid: f24e8d2d92d8fbb4497bbe61149176a4,
-        type: 2}
-      propertyPath: all_targets.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4791085227114850, guid: f24e8d2d92d8fbb4497bbe61149176a4, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -334,6 +329,31 @@ Prefab:
       propertyPath: all_targets.Array.data[1]
       value: 
       objectReference: {fileID: 469122115}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: player_controllers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1599171837}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: player_controllers.Array.data[1]
+      value: 
+      objectReference: {fileID: 921536732}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: goals.Array.data[0]
+      value: 
+      objectReference: {fileID: 1423516090}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: goals.Array.data[1]
+      value: 
+      objectReference: {fileID: 389489376}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: score_manager
+      value: 
+      objectReference: {fileID: 781293443}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f24e8d2d92d8fbb4497bbe61149176a4, type: 2}
   m_IsPrefabAsset: 0
@@ -348,25 +368,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1608000645656696, guid: f24e8d2d92d8fbb4497bbe61149176a4,
     type: 2}
   m_PrefabInternal: {fileID: 248227387}
---- !u!114 &248227390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 248227389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce80fad715166b144bb8c8a61caa7a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player_controllers:
-  - {fileID: 1599171837}
-  - {fileID: 921536732}
-  jump_scripts: []
-  goals:
-  - {fileID: 1423516090}
-  - {fileID: 389489376}
-  score_manager: {fileID: 781293443}
 --- !u!1 &389489376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1439162573326156, guid: 5b4b1bc22b45aef4e88de27acee2fd5c,
@@ -929,6 +930,14 @@ Prefab:
       propertyPath: m_AngularDrag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4252174730689304, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252174730689304, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
   m_IsPrefabAsset: 0
@@ -1289,6 +1298,14 @@ Prefab:
     - target: {fileID: 50749247245637232, guid: 9a35bedc453a48047b7f503b9905c21d,
         type: 2}
       propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252174730689304, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252174730689304, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

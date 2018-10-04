@@ -36,17 +36,18 @@ public class BallMoveTowardsTarget : MonoBehaviour
 	void Start ()
 	{
 	    Aimer.SetActive(false);
-    }
+	    hits = -1;
+	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    if (!hit)
+	    if (!hit && hits > -1)
 	    {
             if (!done)
             {
                 transform.position = Vector3.Lerp(transform.position, Target, Time.deltaTime * speed);
-                if (hits > 1)
+                if (hits > 0)
                 {
                     done = true;
                 }
@@ -182,5 +183,22 @@ public class BallMoveTowardsTarget : MonoBehaviour
             moverTimer = 0;
             end = false;
         }
+    }
+
+
+    public void Reset()
+    {
+        SelectEndTimer = 0;
+        moverTimer = 0;
+
+        targeting = false;
+        end = false;
+
+    hit = false;
+        done = false;
+        DoOnce = false;
+
+        hits = -1;
+
     }
 }
