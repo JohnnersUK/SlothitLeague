@@ -368,6 +368,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1608000645656696, guid: f24e8d2d92d8fbb4497bbe61149176a4,
     type: 2}
   m_PrefabInternal: {fileID: 248227387}
+--- !u!114 &248227391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114400659743752020, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 248227387}
+  m_Script: {fileID: 11500000, guid: 03db77db75d05c24b862269de8f20aed, type: 3}
 --- !u!1 &389489376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1439162573326156, guid: 5b4b1bc22b45aef4e88de27acee2fd5c,
@@ -534,6 +540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 781293444}
   - component: {fileID: 781293443}
+  - component: {fileID: 781293445}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -578,6 +585,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &781293445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781293442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f317322fa663e4dbba0dd887873e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constraints:
+  - {x: -3.7, y: -4}
+  - {x: 3.7, y: 4}
+  ball: {fileID: 248227391}
+  players:
+  - {fileID: 1599171837}
+  - {fileID: 921536732}
 --- !u!1001 &818506705
 Prefab:
   m_ObjectHideFlags: 0

@@ -12,15 +12,34 @@ public class ConstrainToPitch : MonoBehaviour
     {
         if (ball)
         {
-            if (ball.transform.position.x < constraints[0].x ||
-                ball.transform.position.x < constraints[1].x)
+            //Old version, needs updatting
+            //if (ball.transform.position.x < constraints[0].x ||
+            //    ball.transform.position.x < constraints[1].x)
+            //{
+            //    ball.flipTarget(true);
+            //}
+            //if (ball.transform.position.y < constraints[0].y ||
+            //    ball.transform.position.y < constraints[1].y)
+            //{
+            //    ball.flipTarget(false);
+            //}
+
+            //copy of player method for now
+            if (ball.transform.position.x < constraints[0].x)
             {
-                ball.flipTarget(true);
+                ball.transform.position = new Vector3(constraints[0].x, ball.transform.position.y);
             }
-            if (ball.transform.position.y < constraints[0].y ||
-                ball.transform.position.y < constraints[1].y)
+            if (ball.transform.position.x > constraints[1].x)
             {
-                ball.flipTarget(false);
+                ball.transform.position = new Vector3(constraints[1].x, ball.transform.position.y);
+            }
+            if (ball.transform.position.y < constraints[0].y)
+            {
+                ball.transform.position = new Vector3(ball.transform.position.x, constraints[0].y);
+            }
+            if (ball.transform.position.y > constraints[1].y)
+            {
+                ball.transform.position = new Vector3(ball.transform.position.x, constraints[1].y);
             }
         }
 
