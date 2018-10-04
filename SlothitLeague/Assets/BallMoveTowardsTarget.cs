@@ -105,6 +105,24 @@ public class BallMoveTowardsTarget : MonoBehaviour
         hit = false;
     }
 
+    /// <summary>
+    /// Reflects the target in an axis, so the ball
+    /// goes the same distance in the other direction
+    /// </summary>
+    /// <param name="x">is it the x axis</param>
+    public void flipTarget(bool x)
+    {
+        if (x)
+        {
+            float dist_to_target = Target.x - transform.position.x;
+            Target -= new Vector3(dist_to_target * 2, 0);
+        }
+        else
+        {
+            float dist_to_target = Target.y - transform.position.y;
+            Target -= new Vector3(0, dist_to_target * 2);
+        }
+    }
 
     public void Stop()
     {
