@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
 
-    private bool selectedMenuOption;
+    private bool selectedMenuOption; //only a bool because there are only 2 possible options
 
     int numberOfGoals = 5;
 
@@ -17,42 +17,46 @@ public class Menu : MonoBehaviour {
     public KeyCode Right;
 
     public GameObject play;
-    public GameObject numOfGoalsObject;
-
+    public GameObject goalSettings;
     public GameObject scoreToWinObject; //the objetc that hold the number of goals after the scene switches
 
     public string sceneToLoad;
 
+    string settingsString;
     // Use this for initialization
     void Start () {
         selectedMenuOption = true;
         play.GetComponent<MenuOptionScript>().selected = true;
-        numOfGoalsObject.GetComponent<Text>().text = "Goals:" + numberOfGoals;
+
+        settingsString = goalSettings.GetComponent<Text>().text;
+        goalSettings.GetComponent<Text>().text = settingsString + numberOfGoals;
+
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKey(Forward))
+        MenuOptionScript playMenuScript = play.GetComponent<MenuOptionScript>();
+        MenuOptionScript goalSettingsMenuScript = goalSettings.GetComponent<MenuOptionScript>();
+
+        if (Input.GetKey(Forward)) //up
         {
             selectedMenuOption = true;
 
-            play.GetComponent<MenuOptionScript>().selected = true;
-            numOfGoalsObject.GetComponent<MenuOptionScript>().selected = false;
+            playMenuScript.selected = true;
+            goalSettingsMenuScript.selected = false;
         }
 
-
-        if (Input.GetKey(Back))
+        if (Input.GetKey(Back)) //down
         {
             selectedMenuOption = false;
 
-
-            play.GetComponent<MenuOptionScript>().selected = false;
-            numOfGoalsObject.GetComponent<MenuOptionScript>().selected = true;
+           playMenuScript.selected = false;
+           goalSettingsMenuScript.selected = true;
         }
-
-
-        if (Input.GetKeyUp(jumpKey) && selectedMenuOption)
+        
+        if (Input.GetKeyUp(jumpKey) && selectedMenuOption /* if "play" option is selected, this is true*/) //select button
         {
             scoreToWinObject.GetComponent<ScoreToWin>().score_to_win = numberOfGoals;
             SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
@@ -62,15 +66,13 @@ public class Menu : MonoBehaviour {
             if(numberOfGoals < 10)
             {
                 numberOfGoals++;
-
-               
             }
             else
             {
                 numberOfGoals = 5;
             }
 
-            numOfGoalsObject.GetComponent<Text>().text = "Number of goals:" + numberOfGoals;
+            goalSettings.GetComponent<Text>().text = settingsString + numberOfGoals;
         }
 
 

@@ -181,9 +181,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Number of goals :
-
-'
+  m_Text: 'Goals:'
 --- !u!222 &270628093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -602,9 +600,9 @@ MonoBehaviour:
   Left: 97
   Right: 100
   play: {fileID: 1236819953}
-  numOfGoalsObject: {fileID: 270628090}
+  goalSettings: {fileID: 270628090}
   scoreToWinObject: {fileID: 808786970}
-  sceneToLoad: SampleScene
+  sceneToLoad: Game
 --- !u!1 &1317147522
 GameObject:
   m_ObjectHideFlags: 0

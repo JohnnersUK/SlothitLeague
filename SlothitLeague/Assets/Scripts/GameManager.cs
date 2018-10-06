@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     {
         //initialise scores to 0
         scores = new int[2] { 0, 0 };
-
+        GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
+        score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
         StartCoroutine(resetObjects());
     }
 
