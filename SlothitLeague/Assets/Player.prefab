@@ -105,10 +105,12 @@ MonoBehaviour:
   Left: 97
   Right: 100
   Back: 115
+  Boost: 32
   turnspeed: 10
   acceleration: 3
   deceleration: 6
   maxSpeed: 5
+  boostForce: 5
   goingForward: 0
   goalRight: 0
 --- !u!114 &114981882387651782
