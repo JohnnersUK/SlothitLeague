@@ -22,7 +22,7 @@ public class Control : MonoBehaviour
     float turnTimer = 0;
     bool canBoost = true;
 
-    int noBoosts = 1;
+    public int noBoosts = 1;
 
     private bool CanMove = true;
 
@@ -105,7 +105,7 @@ public class Control : MonoBehaviour
                 speed = 0;
             }
 
-            if (Input.GetKeyDown(Boost))
+            if (Input.GetKey(Boost))
             {
                 if (noBoosts > 0 && canBoost && CanMove)
                 {
@@ -146,7 +146,7 @@ public class Control : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Pickup"))
+        if (other.CompareTag("Pickup") && noBoosts < 3)
         {
             noBoosts++;
             other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
