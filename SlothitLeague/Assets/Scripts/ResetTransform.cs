@@ -13,7 +13,6 @@ public class ResetTransform : MonoBehaviour
     /// </summary>
     public void resetTransform()
     {
-        Debug.Log(gameObject.name);
         transform.position = all_targets[target_index].position;
         transform.localRotation = all_targets[target_index].localRotation;
         transform.localScale = all_targets[target_index].localScale;
