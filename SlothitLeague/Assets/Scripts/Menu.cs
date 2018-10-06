@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour {
     void Start () {
         selectedMenuOption = true;
         play.GetComponent<MenuOptionScript>().selected = true;
-        numOfGoalsObject.GetComponent<Text>().text = "Number of goals:" + numberOfGoals;
+        numOfGoalsObject.GetComponent<Text>().text = "Goals:" + numberOfGoals;
     }
 	
 	// Update is called once per frame
