@@ -8,13 +8,17 @@ public class CollisionManager : MonoBehaviour
     [SerializeField] Jump_Script[] jump_scripts;
     [SerializeField] GameObject[] goals;
     [SerializeField] GameManager score_manager;
+    [SerializeField] Rigidbody2D rb;
+    int players_on_ball = 0;
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
             int index = col.gameObject.GetComponent<PlayerData>().getIndex();
-            playerCollide(index);
+            Vector2 direction = (Vector2)transform.position - col.GetContact(0).point;
+            direction.Normalize();
+            playerCollide(index, direction);
         }
         else if (col.gameObject.tag == "Goal")
         {
@@ -23,26 +27,33 @@ public class CollisionManager : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Player")
+        {
+            players_on_ball--;
+        }
+    }
+
     /// <summary>
     /// Logic for when a player collides with a ball
     /// </summary>
     /// <param name="index">index of the player</param>
-    void playerCollide(int index)
+    void playerCollide(int index, Vector2 dir)
     {
-        //if(jump_scripts[index].getGrounded() != /*this object is grounded*/ true)
-        //{
-        //    return;
-        //}
-        //for (int i = 0; i < player_controllers.Length; i++)
-        //{
-        //    if (index != i)
-        //    {
-        //        player_controllers[i].enabled = false;
-        //    }
-        //}
-
-        ////begin minigame
-        ////when minigame ends, enable player controllers again
+        players_on_ball++;
+        if(players_on_ball > 1)
+        {
+            int x = Random.Range(-1, 2);
+            int y = Random.Range(-1, 2);
+            Vector2 force = new Vector2(x,y);
+            force.Normalize();
+            rb.AddForce(force * 5);
+        }
+        else
+        {
+            rb.AddForce(dir * 5);
+        }
     }
 
     /// <summary>

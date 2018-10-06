@@ -17,13 +17,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject ball;
 
+    [SerializeField] Color[] player_colours;
+
     private void Start()
     {
         //initialise scores to 0
         scores = new int[2] { 0, 0 };
+        StartCoroutine(resetObjects());
         GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
         score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
-        StartCoroutine(resetObjects());
     }
 
     /// <summary>
@@ -86,5 +88,10 @@ public class GameManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public Color getPlayerColour(int index)
+    {
+        return player_colours[index];
     }
 }
