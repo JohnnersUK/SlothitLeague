@@ -29,20 +29,20 @@ public class CollisionManager : MonoBehaviour
     /// <param name="index">index of the player</param>
     void playerCollide(int index)
     {
-        if(jump_scripts[index].getGrounded() != /*this object is grounded*/ true)
-        {
-            return;
-        }
-        for (int i = 0; i < player_controllers.Length; i++)
-        {
-            if (index != i)
-            {
-                player_controllers[i].enabled = false;
-            }
-        }
+        //if(jump_scripts[index].getGrounded() != /*this object is grounded*/ true)
+        //{
+        //    return;
+        //}
+        //for (int i = 0; i < player_controllers.Length; i++)
+        //{
+        //    if (index != i)
+        //    {
+        //        player_controllers[i].enabled = false;
+        //    }
+        //}
 
-        //begin minigame
-        //when minigame ends, enable player controllers again
+        ////begin minigame
+        ////when minigame ends, enable player controllers again
     }
 
     /// <summary>

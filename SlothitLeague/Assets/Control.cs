@@ -17,71 +17,99 @@ public class Control : MonoBehaviour
     float speed;
     bool reversing = false;
     float turnTimer = 0;
-    
-    // Use this for initialization
-    void Start()
-    {
 
+    private bool CanMove = true;
+
+    public bool goingForward;
+
+    public bool goalRight;
+
+	// Use this for initialization
+	void Start () {
+        //Screen.SetResolution(256, 192, true);
+        //Screen.SetResolution(640, 480, true);
+        //Screen.SetResolution(512, 384, true);
+        Screen.SetResolution(342, 256, true);
+        resetSpeed();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(Forward))
+        if (CanMove)
         {
-            if (speed < maxSpeed)
+            if (Input.GetKey(Forward))
             {
-                reversing = false;
-                speed += acceleration;
+                goingForward = true;
+                if (speed < maxSpeed)
+                {
+                    reversing = false;
+                    speed += acceleration * Time.deltaTime;
+                }
             }
-        }
-        else if (speed > 0 && !reversing)
-        {
-            speed -= deceleration;
-        }
-        if (speed < 0 && !reversing)
-        {
-            speed = 0;
-        }
+            else if (speed > 0 && !reversing)
+            {
+                speed -= deceleration * Time.deltaTime;
+            }
+            if (speed < 0 && !reversing)
+            {
+                speed = 0;
+            }
 
 
 
-        if (Input.GetKey(Left))
-        {
-            turnTimer++;
-            if (turnTimer > 100 / turnspeed)
+            if (Input.GetKey(Left))
             {
-                this.transform.Rotate(new Vector3(0, 0, 15));
-                turnTimer = 0;
+                turnTimer += Time.deltaTime * 100;
+                if (turnTimer > 100 / turnspeed)
+                {
+                    this.transform.Rotate(new Vector3(0, 0, 15));
+                    turnTimer = 0;
+                }
             }
-        }
-        if (Input.GetKey(Right))
-        {
-            turnTimer++;
-            if (turnTimer > 100 / turnspeed)
+            if (Input.GetKey(Right))
             {
-                transform.Rotate(new Vector3(0, 0, -15));
-                turnTimer = 0;
+                turnTimer += Time.deltaTime * 100;
+                if (turnTimer > 100 / turnspeed)
+                {
+                    transform.Rotate(new Vector3(0, 0, -15));
+                    turnTimer = 0;
+                }
             }
-        }
 
-        if (Input.GetKey(Back))
-        {
-            if (speed > (-maxSpeed / 2))
+            if (Input.GetKey(Back))
             {
-                reversing = true;
-                speed -= acceleration;
+                goingForward = false;
+                if (speed > (-maxSpeed / 2) && speed <= 0)
+                {
+                    reversing = true;
+                    speed -= acceleration * Time.deltaTime;
+                }
+                else if (speed > 0 && !reversing)
+                {
+                    speed -= (deceleration * Time.deltaTime) * 2;
+                }
             }
+            else if (speed < 0 && reversing)
+            {
+                speed += deceleration * Time.deltaTime;
+            }
+            if (speed > 0 && reversing)
+            {
+                speed = 0;
+            }
+            this.transform.position += transform.up * speed * Time.deltaTime;
         }
-        else if (speed < 0 && reversing)
-        {
-            speed += deceleration;
-        }
-        if (speed > 0 && reversing)
-        {
-            speed = 0;
-        }
-        this.transform.position += transform.up * speed * Time.deltaTime;
+    }
+
+    public void SetCanMove(bool _canMove)
+    {
+        CanMove = _canMove;
+    }
+
+    public int GetSpeed()
+    {
+        return (int)speed;
     }
 
     public void resetSpeed()

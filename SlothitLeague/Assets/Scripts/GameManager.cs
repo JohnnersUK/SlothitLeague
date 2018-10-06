@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Control[] player_controllers;  //each player's controller
 
+    [SerializeField] GameObject ball;
+
     private void Start()
     {
         //initialise scores to 0
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator resetObjects()
     {
+        ball.GetComponent<BallMoveTowardsTarget>().Reset();
         //disable player movement
         foreach(Control control in player_controllers)
         {
