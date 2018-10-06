@@ -9,14 +9,20 @@ public class Control : MonoBehaviour
     public KeyCode Left;
     public KeyCode Right;
     public KeyCode Back;
+    public KeyCode Boost;
+
     public float turnspeed;
     public float acceleration;
     public float deceleration;
     public float maxSpeed;
+    public float boostForce;
 
     float speed;
     bool reversing = false;
     float turnTimer = 0;
+    bool canBoost = true;
+
+    int noBoosts = 1;
 
     private bool CanMove = true;
 
@@ -98,6 +104,27 @@ public class Control : MonoBehaviour
             {
                 speed = 0;
             }
+
+            if (Input.GetKeyDown(Boost))
+            {
+                if (noBoosts > 0 && canBoost && CanMove)
+                {
+                    speed += boostForce;
+                    noBoosts--;
+                    canBoost = false;
+                }
+            }
+
+            if (Input.GetKeyUp(Boost))
+            {
+                canBoost = true;
+            }
+
+            if (speed > maxSpeed)
+            {
+                speed -= deceleration * Time.deltaTime;
+            }
+
             this.transform.position += transform.up * speed * Time.deltaTime;
         }
     }
@@ -115,5 +142,14 @@ public class Control : MonoBehaviour
     public void resetSpeed()
     {
         speed = 0;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Pickup"))
+        {
+            noBoosts++;
+            other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
+        }
     }
 }
