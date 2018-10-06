@@ -389,8 +389,29 @@ Prefab:
         type: 2}
       propertyPath: rb
       value: 
-      objectReference: {fileID: 248227392}
-    m_RemovedComponents: []
+      objectReference: {fileID: 0}
+    - target: {fileID: 114715113038275920, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 248227391}
+    - target: {fileID: 114400659743752020, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 61062569692425144, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114400659743752020, guid: f24e8d2d92d8fbb4497bbe61149176a4,
+        type: 2}
+      propertyPath: def_speed
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 50049904583826270, guid: f24e8d2d92d8fbb4497bbe61149176a4, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: f24e8d2d92d8fbb4497bbe61149176a4, type: 2}
   m_IsPrefabAsset: 0
 --- !u!114 &248227388 stripped
@@ -410,11 +431,26 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 248227387}
   m_Script: {fileID: 11500000, guid: 03db77db75d05c24b862269de8f20aed, type: 3}
---- !u!50 &248227392 stripped
+--- !u!50 &248227392
 Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 50049904583826270, guid: f24e8d2d92d8fbb4497bbe61149176a4,
-    type: 2}
-  m_PrefabInternal: {fileID: 248227387}
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 248227389}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &275349467
 Prefab:
   m_ObjectHideFlags: 0
@@ -866,6 +902,11 @@ Prefab:
       propertyPath: game_manager
       value: 
       objectReference: {fileID: 781293443}
+    - target: {fileID: 61877048949803748, guid: 5b4b1bc22b45aef4e88de27acee2fd5c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b4b1bc22b45aef4e88de27acee2fd5c, type: 2}
   m_IsPrefabAsset: 0
@@ -1642,6 +1683,11 @@ Prefab:
       propertyPath: game_manager
       value: 
       objectReference: {fileID: 781293443}
+    - target: {fileID: 61877048949803748, guid: 5b4b1bc22b45aef4e88de27acee2fd5c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b4b1bc22b45aef4e88de27acee2fd5c, type: 2}
   m_IsPrefabAsset: 0
