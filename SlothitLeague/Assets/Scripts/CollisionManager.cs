@@ -9,13 +9,30 @@ public class CollisionManager : MonoBehaviour
     [SerializeField] GameObject[] goals;
     [SerializeField] GameManager score_manager;
 
+
+    [HideInInspector]
+    public AudioManager audioManager;
+
+
+
+    private void Start()
+    {
+        // init Audio Manager
+        audioManager = FindObjectOfType<AudioManager>();
+
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
             int index = col.gameObject.GetComponent<PlayerData>().getIndex();
             playerCollide(index);
+
+            // plays audio for explosion
+             audioManager.Play("Ball Hit");
         }
+
         else if (col.gameObject.tag == "Goal")
         {
             int index = col.gameObject.GetComponent<PlayerData>().getIndex();
@@ -56,5 +73,11 @@ public class CollisionManager : MonoBehaviour
             Debug.LogError("This code may not work with more than two players");
         }
         score_manager.ModifyScore(1 - index, 1);
+
+        
+        // plays audio for explosion
+        audioManager.Play("Explosion");
+
+
     }
 }

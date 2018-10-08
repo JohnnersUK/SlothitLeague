@@ -210,8 +210,11 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
                 col.gameObject.GetComponent<Control>().SetCanMove(false);
 
+                //                                                                                          HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
                     player.GetComponent<Control>().SetCanMove(false);
+
+                
 
                 targeting = true;
                 SelectEndTimer = 0;

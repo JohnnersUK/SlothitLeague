@@ -30,19 +30,23 @@ public class Control : MonoBehaviour
 
     public bool goalRight;
 
-	// Use this for initialization
-	void Start () {
+    public AudioManager audioManager;
+
+    // Use this for initialization
+    void Start () {
         //Screen.SetResolution(256, 192, true);
         //Screen.SetResolution(640, 480, true);
         //Screen.SetResolution(512, 384, true);
         Screen.SetResolution(342, 256, true);
         resetSpeed();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CanMove)
+
+            if (CanMove)
         {
             if (Input.GetKey(Forward))
             {
@@ -109,9 +113,11 @@ public class Control : MonoBehaviour
             {
                 if (noBoosts > 0 && canBoost && CanMove)
                 {
+
                     speed += boostForce;
                     noBoosts--;
                     canBoost = false;
+                    audioManager.Play("Boost");
                 }
             }
 
