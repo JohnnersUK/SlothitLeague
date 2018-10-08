@@ -16,15 +16,13 @@ public class Control : MonoBehaviour
     public float boostForce;
 
     float speed;
-    bool reversing = false;
+    //bool reversing = false;
     float turnTimer = 0;
     bool canBoost = true;
 
     public int noBoosts = 1;
 
     private bool CanMove = true;
-
-    public bool goingForward;
 
     public bool goalRight;
 
@@ -53,23 +51,27 @@ public class Control : MonoBehaviour
         {
             if (Input.GetKey(buttons[(int)InputType.UP]))
             {
-                goingForward = true;
                 if (speed < maxSpeed)
                 {
-                    reversing = false;
                     speed += acceleration * Time.deltaTime;
                 }
             }
-            else if (speed > 0 && !reversing)
+            else if (Input.GetKey(buttons[(int)InputType.DOWN]))
             {
-                speed -= deceleration * Time.deltaTime;
+                if (speed > (-maxSpeed / 2) && speed <= 0)
+                {
+                    speed -= acceleration * Time.deltaTime;
+                }
+                else if (speed > 0)
+                {
+                    speed -= (deceleration * Time.deltaTime) * 2;
+                }
             }
-            if (speed < 0 && !reversing)
+            else
             {
-                speed = 0;
+                int decel_dir = speed > 0 ? 1 : -1;
+                speed -= (deceleration * decel_dir * Time.deltaTime);
             }
-
-
 
             if (Input.GetKey(buttons[(int)InputType.LEFT]))
             {
@@ -178,7 +180,6 @@ public class Control : MonoBehaviour
 
             rb.AddForce(dir * 50 * (1 + speed));
             speed = -speed;
-            reversing = true;
         }
 
         if (other.gameObject.name == "LeftConstraint" ||
@@ -186,9 +187,7 @@ public class Control : MonoBehaviour
             other.gameObject.name == "TopConstraint" ||
             other.gameObject.name == "BottomConstraint")
         {
-            speed = -speed;
-            Debug.Log(speed);
-            reversing = true;
+            speed = -speed * 0.5f;
         }
     }
 
@@ -199,4 +198,4 @@ public class Control : MonoBehaviour
         boostUnavailable = true;
     }
 }
-    
+
