@@ -145,12 +145,15 @@ public class Control : MonoBehaviour
             Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
 
             Vector2 dir = other.gameObject.transform.position - transform.position;
+
+            dir.x = round(dir.x);
+            dir.y = round(dir.y);
             dir.Normalize();
 
             rb.velocity = Vector2.zero;
 
-            rb.AddForce(dir * 50 * (1 + speed));
-            speed = -speed;
+            rb.AddForce(dir * 30 * (1 + speed));
+            speed = 0;
         }
 
         if (other.gameObject.name == "LeftConstraint" ||
@@ -160,6 +163,16 @@ public class Control : MonoBehaviour
         {
             speed = -speed * 0.5f;
         }
+    }
+
+    int round(float f)
+    {
+        if (f < -0.2f)
+            return -1;
+        else if (f > 0.2f)
+            return 1;
+        else
+            return 0;
     }
 }
 
