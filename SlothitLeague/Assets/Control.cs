@@ -156,16 +156,12 @@ public class Control : MonoBehaviour
             noBoosts++;
             other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
         }
-
-      
     }
 
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == ("Player"))
         {
-
-            Debug.Log("col");
             Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
 
             Vector2 dir = other.gameObject.transform.position - transform.position;
@@ -178,38 +174,15 @@ public class Control : MonoBehaviour
             reversing = true;
         }
 
-        if (other.gameObject.name == "LeftConstraint")
+        if (other.gameObject.name == "LeftConstraint" ||
+            other.gameObject.name == "RightConstraint" ||
+            other.gameObject.name == "TopConstraint" ||
+            other.gameObject.name == "BottomConstraint")
         {
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
             speed = -speed;
-            rb.AddForce(Vector2.right * 200);
+            Debug.Log(speed);
             reversing = true;
         }
-        if (other.gameObject.name == "RightConstraint")
-        {
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-            speed = -speed;
-            rb.AddForce(Vector2.left * 200);
-            reversing = true;
-        }
-        if (other.gameObject.name == "TopConstraint")
-        {
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-            speed = -speed;
-            rb.AddForce(Vector2.down * 200);
-            reversing = true;
-        }
-        if (other.gameObject.name == "BottomConstraint")
-        {
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-            speed = -speed;
-            rb.AddForce(Vector2.up * 200);
-            reversing = true;
-        }
-    }
-        
-
-      
-    
+    }    
 }
     

@@ -31,6 +31,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
     int hits;
 
     private Color defualtCol;
+    int last_hit_player = -1;
 
     public float aimMaxY;
     public float aimMinY;
@@ -97,7 +98,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 moverTimer = 0;
             }
 
-            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, 0)))
+            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, last_hit_player)))
                 end = true;
         }
 
@@ -145,6 +146,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
+            last_hit_player = col.gameObject.GetComponent<PlayerData>().getIndex();
 
             hits++;
             if (hits > 1)
@@ -240,7 +242,6 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public void Reset()
     {
         GetComponent<SpriteRenderer>().color = defualtCol;
-
         SelectEndTimer = 0;
         moverTimer = 0;
 
