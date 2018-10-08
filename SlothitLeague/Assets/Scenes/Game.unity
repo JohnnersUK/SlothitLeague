@@ -1538,6 +1538,7 @@ MonoBehaviour:
   player_colours:
   - {r: 1, g: 0.5019608, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
+  player_buttons: 2f01000020000000
 --- !u!4 &781293444
 Transform:
   m_ObjectHideFlags: 0
