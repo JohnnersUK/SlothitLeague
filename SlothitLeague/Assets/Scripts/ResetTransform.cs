@@ -11,17 +11,13 @@ public class ResetTransform : MonoBehaviour
     /// resets the position, rotation, and scale of this object
     /// to allow for another play
     /// </summary>
-    public void resetTransform()
+    public void resetTransform(int winner = -1)
     {
+        if (winner != -1)
+        {
+            target_index = winner;
+        }
         transform.position = all_targets[target_index].position;
         transform.localRotation = all_targets[target_index].localRotation;
-        transform.localScale = all_targets[target_index].localScale;
-
-        //cycle through your targets if you have multiple
-        target_index++;
-        if(target_index >= all_targets.Length)
-        {
-            target_index = 0;
-        }
     }
 }

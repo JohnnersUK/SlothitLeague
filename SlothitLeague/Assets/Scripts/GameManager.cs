@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
         //initialise scores to 0
         scores = new int[2] { 0, 0 };
         StartCoroutine(resetObjects());
-        GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
-        score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
+        //GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
+        //score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(resetObjects());
+            StartCoroutine(resetObjects(1 - player));
         }
     }
 
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     /// Sends the players back to the starting positions
     /// </summary>
     /// <returns></returns>
-    IEnumerator resetObjects()
+    IEnumerator resetObjects(int winner = -1)
     {
         ball.GetComponent<BallMoveTowardsTarget>().Reset();
         //disable player movement
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         foreach(ResetTransform r in reset_transform)
         {
-            r.resetTransform();
+            r.resetTransform(winner);
         }
 
         //wait
