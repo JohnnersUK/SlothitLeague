@@ -35,7 +35,7 @@ public class Control : MonoBehaviour
         //Screen.SetResolution(256, 192, true);
         //Screen.SetResolution(640, 480, true);
         //Screen.SetResolution(512, 384, true);
-        Screen.SetResolution(342, 256, true);
+        //Screen.SetResolution(342, 256, true);
         resetSpeed();
     }
 
