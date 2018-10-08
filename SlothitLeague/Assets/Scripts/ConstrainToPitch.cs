@@ -5,13 +5,13 @@ using UnityEngine;
 public class ConstrainToPitch : MonoBehaviour
 {
     [SerializeField] Vector2[] constraints; //constraints of the map
-    [SerializeField] BallMoveTowardsTarget ball;
+   // [SerializeField] BallMoveTowardsTarget ball;
     [SerializeField] Control[] players;
     bool stuck = false; //checks whether the ball has been out of bounds for more than two frames
 
     private void Update()
     {
-        constrainBall();
+        //constrainBall();
         foreach (Control player in players)
         {
             if (player.transform.position.x < constraints[0].x)
@@ -37,63 +37,63 @@ public class ConstrainToPitch : MonoBehaviour
         }
     }
 
-    void constrainBall()
-    {
-        if (ball.transform.position.x < constraints[0].x)
-        {
-            ball.transform.position = new Vector3(constraints[0].x, ball.transform.position.y);
-            if (!stuck)
-            {
-                ball.flipDir(true);
-                stuck = true;
-            }
-            else
-            {
-                ball.setDirection(Vector2.right);
-            }
-        }
-        else if (ball.transform.position.x > constraints[1].x)
-        {
-            ball.transform.position = new Vector3(constraints[1].x, ball.transform.position.y);
-            if (!stuck)
-            {
-                ball.flipDir(true);
-                stuck = true;
-            }
-            else
-            {
-                ball.setDirection(Vector2.left);
-            }
-        }
-        else if (ball.transform.position.y < constraints[0].y)
-        {
-            ball.transform.position = new Vector3(ball.transform.position.x, constraints[0].y);
-            if (!stuck)
-            {
-                ball.flipDir(false);
-                stuck = true;
-            }
-            else
-            {
-                ball.setDirection(Vector2.up);
-            }
-        }
-        else if (ball.transform.position.y > constraints[1].y)
-        {
-            ball.transform.position = new Vector3(ball.transform.position.x, constraints[1].y);
-            if (!stuck)
-            {
-                ball.flipDir(false);
-                stuck = true;
-            }
-            else
-            {
-                ball.setDirection(Vector2.down);
-            }
-        }
-        else if (stuck)
-        {
-            stuck = false;
-        }
-    }
+    //void constrainBall()
+    //{
+    //    if (ball.transform.position.x < constraints[0].x)
+    //    {
+    //        ball.transform.position = new Vector3(constraints[0].x, ball.transform.position.y);
+    //        if (!stuck)
+    //        {
+    //            ball.flipDir(true);
+    //            stuck = true;
+    //        }
+    //        else
+    //        {
+    //            ball.setDirection(Vector2.right);
+    //        }
+    //    }
+    //    else if (ball.transform.position.x > constraints[1].x)
+    //    {
+    //        ball.transform.position = new Vector3(constraints[1].x, ball.transform.position.y);
+    //        if (!stuck)
+    //        {
+    //            ball.flipDir(true);
+    //            stuck = true;
+    //        }
+    //        else
+    //        {
+    //            ball.setDirection(Vector2.left);
+    //        }
+    //    }
+    //    else if (ball.transform.position.y < constraints[0].y)
+    //    {
+    //        ball.transform.position = new Vector3(ball.transform.position.x, constraints[0].y);
+    //        if (!stuck)
+    //        {
+    //            ball.flipDir(false);
+    //            stuck = true;
+    //        }
+    //        else
+    //        {
+    //            ball.setDirection(Vector2.up);
+    //        }
+    //    }
+    //    else if (ball.transform.position.y > constraints[1].y)
+    //    {
+    //        ball.transform.position = new Vector3(ball.transform.position.x, constraints[1].y);
+    //        if (!stuck)
+    //        {
+    //            ball.flipDir(false);
+    //            stuck = true;
+    //        }
+    //        else
+    //        {
+    //            ball.setDirection(Vector2.down);
+    //        }
+    //    }
+    //    else if (stuck)
+    //    {
+    //        stuck = false;
+    //    }
+    //}
 }

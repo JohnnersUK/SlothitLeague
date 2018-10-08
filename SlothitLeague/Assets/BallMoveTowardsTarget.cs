@@ -122,7 +122,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
     public void setDirection(Vector2 _direction)
     {
-        speed = def_speed * 1.5f;
+        speed = def_speed * 2.5f;
         direction = _direction;
         hit = false;
     }
@@ -214,6 +214,26 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 moverTimer = 0;
                 end = false;
             }
+        }
+
+        if (col.gameObject.name == "LeftConstraint" && direction.x < 0)
+        {
+            flipDir(true);
+        }
+
+        if (col.gameObject.name == "RightConstraint" && direction.x > 0)
+        {
+            flipDir(true);
+        }
+
+        if (col.gameObject.name == "BottomConstraint" && direction.y < 0)
+        {
+            flipDir(false);
+        }
+
+        if (col.gameObject.name == "TopConstraint" && direction.y > 0)
+        {
+            flipDir(false);
         }
     }
 
