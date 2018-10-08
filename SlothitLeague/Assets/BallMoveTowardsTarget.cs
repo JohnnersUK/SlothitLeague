@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BallMoveTowardsTarget : MonoBehaviour
 {
-    public KeyCode Select;
-
+    [SerializeField] InputManager input;
     public GameObject Aimer;
 
     private bool targeting;
@@ -98,7 +97,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 moverTimer = 0;
             }
 
-            if (Input.GetKeyDown(Select))
+            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, 0)))
                 end = true;
         }
 

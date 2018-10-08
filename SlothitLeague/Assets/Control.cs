@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Control : MonoBehaviour
 {
+    [SerializeField] InputManager input;
+    [SerializeField] PlayerData data;
 
-    public KeyCode Forward;
-    public KeyCode Left;
-    public KeyCode Right;
-    public KeyCode Back;
-    public KeyCode Boost;
+    KeyCode[] buttons;
 
     public float turnspeed;
     public float acceleration;
@@ -30,8 +28,15 @@ public class Control : MonoBehaviour
 
     public bool goalRight;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
+        int index = data.getIndex();
+        buttons = new KeyCode[5];
+        for (int i = 0; i < 5; i++)
+        {
+            buttons[i] = input.getPlayerKey((InputType)i, index);
+        }
         //Screen.SetResolution(256, 192, true);
         //Screen.SetResolution(640, 480, true);
         //Screen.SetResolution(512, 384, true);
@@ -44,7 +49,7 @@ public class Control : MonoBehaviour
     {
         if (CanMove)
         {
-            if (Input.GetKey(Forward))
+            if (Input.GetKey(buttons[(int)InputType.UP]))
             {
                 goingForward = true;
                 if (speed < maxSpeed)
@@ -64,7 +69,7 @@ public class Control : MonoBehaviour
 
 
 
-            if (Input.GetKey(Left))
+            if (Input.GetKey(buttons[(int)InputType.LEFT]))
             {
                 turnTimer += Time.deltaTime * 100;
                 if (turnTimer > 100 / turnspeed)
@@ -73,7 +78,7 @@ public class Control : MonoBehaviour
                     turnTimer = 0;
                 }
             }
-            if (Input.GetKey(Right))
+            if (Input.GetKey(buttons[(int)InputType.RIGHT]))
             {
                 turnTimer += Time.deltaTime * 100;
                 if (turnTimer > 100 / turnspeed)
@@ -83,7 +88,7 @@ public class Control : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(Back))
+            if (Input.GetKey(buttons[(int)InputType.DOWN]))
             {
                 goingForward = false;
                 if (speed > (-maxSpeed / 2) && speed <= 0)
@@ -105,7 +110,7 @@ public class Control : MonoBehaviour
                 speed = 0;
             }
 
-            if (Input.GetKey(Boost))
+            if (Input.GetKey(buttons[(int)InputType.BUTTON]))
             {
                 if (noBoosts > 0 && canBoost && CanMove)
                 {
@@ -115,7 +120,7 @@ public class Control : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyUp(Boost))
+            if (Input.GetKeyUp(buttons[(int)InputType.BUTTON]))
             {
                 canBoost = true;
             }

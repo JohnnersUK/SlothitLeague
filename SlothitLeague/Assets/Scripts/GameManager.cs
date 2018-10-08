@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Control[] player_controllers;  //each player's controller
     [SerializeField] GameObject ball;
     [SerializeField] Color[] player_colours;
-    [SerializeField] KeyCode[] player_buttons;
+    [SerializeField] InputManager input;
 
     private void Start()
     {
@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (KeyCode key in player_buttons)
+        for (int i = 0; i < 2; i++)
         {
+            KeyCode key = input.getPlayerKey(InputType.BUTTON, i);
             if (win_text.enabled && Input.GetKeyDown(key))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
