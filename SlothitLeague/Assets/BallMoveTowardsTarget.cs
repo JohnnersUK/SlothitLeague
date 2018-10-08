@@ -31,7 +31,6 @@ public class BallMoveTowardsTarget : MonoBehaviour
     int hits;
 
     private Color defualtCol;
-    int last_hit_player = -1;
 
     public float aimMaxY;
     public float aimMinY;
@@ -39,6 +38,8 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public float kickoff_dist_modifier;
 
     public float normalHitPowerModifier;
+
+    private int kickoff_player_index = -1;
 
     float[] player_hit_timer;   //time since each player last hit the ball
 
@@ -98,8 +99,10 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 moverTimer = 0;
             }
 
-            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, last_hit_player)))
+            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, kickoff_player_index)))
+            {
                 end = true;
+            }
         }
 
         if (end)
@@ -146,7 +149,6 @@ public class BallMoveTowardsTarget : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
-            last_hit_player = col.gameObject.GetComponent<PlayerData>().getIndex();
 
             hits++;
             if (hits > 1)
@@ -176,6 +178,10 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 float dir = col.gameObject.transform.InverseTransformDirection(Vector3.up).x;
 
                 Aimer.SetActive(true);
+
+                kickoff_player_index = col.gameObject.GetComponent<PlayerData>().getIndex();
+
+                col.gameObject.GetComponent<Control>().DisableBoost();
 
                 if (dir > 0)
                 {
@@ -242,6 +248,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public void Reset()
     {
         GetComponent<SpriteRenderer>().color = defualtCol;
+
         SelectEndTimer = 0;
         moverTimer = 0;
 
@@ -253,5 +260,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
         DoOnce = false;
 
         hits = -1;
+
+        kickoff_player_index = -1;
     }
 }
