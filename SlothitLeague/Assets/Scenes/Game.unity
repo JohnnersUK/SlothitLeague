@@ -1516,7 +1516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 781293444}
   - component: {fileID: 781293443}
-  - component: {fileID: 781293445}
   - component: {fileID: 781293446}
   m_Layer: 0
   m_Name: SceneManager
@@ -1570,23 +1569,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &781293445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 781293442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55f317322fa663e4dbba0dd887873e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints:
-  - {x: -6.9, y: -6.5}
-  - {x: 6.9, y: 6.5}
-  players:
-  - {fileID: 1599171837}
-  - {fileID: 921536732}
 --- !u!114 &781293446
 MonoBehaviour:
   m_ObjectHideFlags: 0
