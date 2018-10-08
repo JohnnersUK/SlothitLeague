@@ -56,7 +56,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < player_hit_timer.Length; i++)
+        for (int i = 0; i < player_hit_timer.Length; i++)
         {
             player_hit_timer[i] -= Time.deltaTime;
         }

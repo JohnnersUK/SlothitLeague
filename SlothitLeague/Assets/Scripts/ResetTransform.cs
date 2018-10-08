@@ -13,6 +13,11 @@ public class ResetTransform : MonoBehaviour
     /// </summary>
     public void resetTransform(int winner = -1)
     {
+        Rigidbody2D rb;
+        if (rb = GetComponent<Rigidbody2D>())
+        {
+            rb.velocity = Vector2.zero;
+        }
         if (winner != -1)
         {
             target_index = winner;
