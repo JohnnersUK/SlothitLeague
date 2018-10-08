@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Control : MonoBehaviour
 {
+    [SerializeField] InputManager input;
+    [SerializeField] PlayerData data;
 
-    public KeyCode Forward;
-    public KeyCode Left;
-    public KeyCode Right;
-    public KeyCode Back;
-    public KeyCode Boost;
+    KeyCode[] buttons;
 
     public float turnspeed;
     public float acceleration;
@@ -18,7 +16,7 @@ public class Control : MonoBehaviour
     public float boostForce;
 
     float speed;
-    bool reversing = false;
+    //bool reversing = false;
     float turnTimer = 0;
     bool canBoost = true;
 
@@ -26,49 +24,56 @@ public class Control : MonoBehaviour
 
     private bool CanMove = true;
 
-    public bool goingForward;
-
     public bool goalRight;
 
-    public AudioManager audioManager;
+    bool boostUnavailable = false;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        int index = data.getIndex();
+        buttons = new KeyCode[5];
+        for (int i = 0; i < 5; i++)
+        {
+            buttons[i] = input.getPlayerKey((InputType)i, index);
+        }
         //Screen.SetResolution(256, 192, true);
         //Screen.SetResolution(640, 480, true);
         //Screen.SetResolution(512, 384, true);
-        Screen.SetResolution(342, 256, true);
+        //Screen.SetResolution(342, 256, true);
         resetSpeed();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-            if (CanMove)
+        if (CanMove)
         {
-            if (Input.GetKey(Forward))
+            if (Input.GetKey(buttons[(int)InputType.UP]))
             {
-                goingForward = true;
                 if (speed < maxSpeed)
                 {
-                    reversing = false;
                     speed += acceleration * Time.deltaTime;
                 }
             }
-            else if (speed > 0 && !reversing)
+            else if (Input.GetKey(buttons[(int)InputType.DOWN]))
             {
-                speed -= deceleration * Time.deltaTime;
+                if (speed > (-maxSpeed / 2) && speed <= 0)
+                {
+                    speed -= acceleration * Time.deltaTime;
+                }
+                else if (speed > 0)
+                {
+                    speed -= (deceleration * Time.deltaTime) * 2;
+                }
             }
-            if (speed < 0 && !reversing)
+            else
             {
-                speed = 0;
+                int decel_dir = speed > 0 ? 1 : -1;
+                speed -= (deceleration * decel_dir * Time.deltaTime);
             }
 
-
-
-            if (Input.GetKey(Left))
+            if (Input.GetKey(buttons[(int)InputType.LEFT]))
             {
                 turnTimer += Time.deltaTime * 100;
                 if (turnTimer > 100 / turnspeed)
@@ -77,7 +82,7 @@ public class Control : MonoBehaviour
                     turnTimer = 0;
                 }
             }
-            if (Input.GetKey(Right))
+            if (Input.GetKey(buttons[(int)InputType.RIGHT]))
             {
                 turnTimer += Time.deltaTime * 100;
                 if (turnTimer > 100 / turnspeed)
@@ -87,41 +92,18 @@ public class Control : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(Back))
+            if (Input.GetKeyDown(buttons[(int)InputType.BUTTON]))
             {
-                goingForward = false;
-                if (speed > (-maxSpeed / 2) && speed <= 0)
+                if (noBoosts > 0 && canBoost && CanMove && !boostUnavailable)
                 {
-                    reversing = true;
-                    speed -= acceleration * Time.deltaTime;
-                }
-                else if (speed > 0 && !reversing)
-                {
-                    speed -= (deceleration * Time.deltaTime) * 2;
-                }
-            }
-            else if (speed < 0 && reversing)
-            {
-                speed += deceleration * Time.deltaTime;
-            }
-            if (speed > 0 && reversing)
-            {
-                speed = 0;
-            }
-
-            if (Input.GetKey(Boost))
-            {
-                if (noBoosts > 0 && canBoost && CanMove)
-                {
-
                     speed += boostForce;
                     noBoosts--;
                     canBoost = false;
-                    audioManager.Play("Boost");
                 }
+                boostUnavailable = false;
             }
 
-            if (Input.GetKeyUp(Boost))
+            if (Input.GetKeyUp(buttons[(int)InputType.BUTTON]))
             {
                 canBoost = true;
             }
@@ -158,4 +140,47 @@ public class Control : MonoBehaviour
             other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
         }
     }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == ("Player"))
+        {
+            Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+
+            Vector2 dir = other.gameObject.transform.position - transform.position;
+
+            dir.x = round(dir.x);
+            dir.y = round(dir.y);
+            dir.Normalize();
+
+            rb.velocity = Vector2.zero;
+
+            rb.AddForce(dir * 30 * (1 + speed));
+            speed = 0;
+        }
+
+        if (other.gameObject.name == "LeftConstraint" ||
+            other.gameObject.name == "RightConstraint" ||
+            other.gameObject.name == "TopConstraint" ||
+            other.gameObject.name == "BottomConstraint")
+        {
+            speed = -speed * 0.5f;
+        }
+    }
+
+    int round(float f)
+    {
+        if (f < -0.2f)
+            return -1;
+        else if (f > 0.2f)
+            return 1;
+        else
+            return 0;
+    }
+
+    public void DisableBoost()
+    {
+        boostUnavailable = true;
+    }
 }
+

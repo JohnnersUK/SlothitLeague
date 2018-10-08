@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BallMoveTowardsTarget : MonoBehaviour
 {
-    public KeyCode Select;
-
+    [SerializeField] InputManager input;
     public GameObject Aimer;
 
     private bool targeting;
@@ -23,8 +22,9 @@ public class BallMoveTowardsTarget : MonoBehaviour
     public float LeftLimit;
     public float RightLimit;
 
-    private Vector3 Target;
-    public float speed;
+    Vector2 direction = Vector2.zero;
+    [SerializeField] float def_speed;
+    float speed;
     public bool hit;
     bool DoOnce;
     bool done;
@@ -37,106 +37,110 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
     public float kickoff_dist_modifier;
 
-
     public float normalHitPowerModifier;
 
-	// Use this for initialization
-	void Start ()
-	{
-	    Aimer.SetActive(false);
-	    hits = -1;
+    private int kickoff_player_index = -1;
 
-	    defualtCol = GetComponent<SpriteRenderer>().color;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	    if (!hit && hits > -1)
-	    {
-            if (!done)
-            {
-                transform.position = Vector3.Lerp(transform.position, Target, Time.deltaTime * speed);
-                if (hits > 0)
-                {
-                    done = true;
-                }
-            }
-	    }
-	    else
-	    {
-	        if (targeting && !end)
-	        {
-	            moverTimer += Time.deltaTime;
+    float[] player_hit_timer;   //time since each player last hit the ball
 
-	            if (moverTimer > timeToMoveAim)
-	            {
-	                if (Aimer.transform.position.y <= aimMaxY && !goDown)
-	                {
-	                    Aimer.transform.position += new Vector3(0, 1, 0);
-	                }
-	                else
-	                {
-	                    goDown = true;
-	                    if (Aimer.transform.position.y >= aimMinY)
-	                    {
-	                        Aimer.transform.position -= new Vector3(0, 1, 0);
-	                    }
-	                    else
-	                    {
-	                        goDown = false;
-	                    }
-	                }
-	                moverTimer = 0;
-	            }
-
-	            if (Input.GetKeyDown(Select))
-	                end = true;
-	        }
-
-	        if (end)
-	        {
-	            // SelectEndTimer += Time.deltaTime;
-	            SetMoveTarget(Aimer.transform.position);
-
-	            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-	                player.GetComponent<Control>().SetCanMove(true);
-
-	            DoOnce = true;             
-	            Aimer.SetActive(false);
-	        }
-	    }
-	}
-
-
-    public void SetMoveTarget(Vector3 tar)
+    // Use this for initialization
+    void Start()
     {
-        Target = tar;
+        Aimer.SetActive(false);
+        hits = -1;
+
+        defualtCol = GetComponent<SpriteRenderer>().color;
+
+        player_hit_timer = new float[2];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        for (int i = 0; i < player_hit_timer.Length; i++)
+        {
+            player_hit_timer[i] -= Time.deltaTime;
+        }
+        if (!Aimer.activeSelf)
+        {
+            transform.Translate(direction * speed * Time.deltaTime);
+            if (speed > def_speed)
+            {
+                speed -= Time.deltaTime;
+            }
+            else
+            {
+                speed = def_speed;
+            }
+        }
+
+        if (targeting && !end)
+        {
+            moverTimer += Time.deltaTime;
+
+            if (moverTimer > timeToMoveAim)
+            {
+                if (Aimer.transform.position.y <= aimMaxY && !goDown)
+                {
+                    Aimer.transform.position += new Vector3(0, 1, 0);
+                }
+                else
+                {
+                    goDown = true;
+                    if (Aimer.transform.position.y >= aimMinY)
+                    {
+                        Aimer.transform.position -= new Vector3(0, 1, 0);
+                    }
+                    else
+                    {
+                        goDown = false;
+                    }
+                }
+                moverTimer = 0;
+            }
+
+            if (Input.GetKeyDown(input.getPlayerKey(InputType.BUTTON, kickoff_player_index)))
+            {
+                end = true;
+            }
+        }
+
+        if (end)
+        {
+            if (!DoOnce)
+            {
+                Vector2 d = Aimer.transform.position - transform.position;
+                d.Normalize();
+                setDirection(d);
+            }
+
+            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+                player.GetComponent<Control>().SetCanMove(true);
+
+            DoOnce = true;
+            Aimer.SetActive(false);
+        }
+    }
+
+
+    public void setDirection(Vector2 _direction)
+    {
+        speed = def_speed * 2.5f;
+        direction = _direction;
         hit = false;
     }
 
-    /// <summary>
-    /// Reflects the target in an axis, so the ball
-    /// goes the same distance in the other direction
-    /// </summary>
-    /// <param name="x">is it the x axis</param>
-    public void flipTarget(bool x)
+    public void flipDir(bool x)
     {
         if (x)
-        {
-            float dist_to_target = Target.x - transform.position.x;
-            Target -= new Vector3(dist_to_target * 2, 0);
-        }
+            direction.x *= -1;
         else
-        {
-            float dist_to_target = Target.y - transform.position.y;
-            Target -= new Vector3(0, dist_to_target * 2);
-        }
+            direction.y *= -1;
     }
 
     public void Stop()
     {
-        Target = transform.position;
+        direction = Vector2.zero;
         hit = true;
     }
 
@@ -154,16 +158,13 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
                 if (col.gameObject.tag == "Player")
                 {
-                    if (col.gameObject.GetComponent<Control>().GetSpeed() < 1)
+                    int player_index = col.gameObject.GetComponent<PlayerData>().getIndex();
+                    if (player_hit_timer[player_index] <= 0)
                     {
-                        GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
-                                                             normalHitPowerModifier);
-                    }
-                    else
-                    {
-                        GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
-                                                             col.gameObject.GetComponent<Control>().GetSpeed() *
-                                                             normalHitPowerModifier);
+                        Vector2 d = transform.position - col.transform.position;
+                        d.Normalize();
+                        setDirection(d);
+                        player_hit_timer[player_index] = 0.5f;
                     }
                 }
             }
@@ -172,13 +173,15 @@ public class BallMoveTowardsTarget : MonoBehaviour
             {
                 Stop();
 
-                Debug.Log(col.gameObject.transform.InverseTransformDirection(Vector3.up).ToString());
-
                 hitMoveToDist = col.gameObject.GetComponent<Control>().GetSpeed();
 
                 float dir = col.gameObject.transform.InverseTransformDirection(Vector3.up).x;
 
                 Aimer.SetActive(true);
+
+                kickoff_player_index = col.gameObject.GetComponent<PlayerData>().getIndex();
+
+                col.gameObject.GetComponent<Control>().DisableBoost();
 
                 if (dir > 0)
                 {
@@ -222,6 +225,26 @@ public class BallMoveTowardsTarget : MonoBehaviour
                 end = false;
             }
         }
+
+        if (col.gameObject.name == "LeftConstraint" && direction.x < 0)
+        {
+            flipDir(true);
+        }
+
+        if (col.gameObject.name == "RightConstraint" && direction.x > 0)
+        {
+            flipDir(true);
+        }
+
+        if (col.gameObject.name == "BottomConstraint" && direction.y < 0)
+        {
+            flipDir(false);
+        }
+
+        if (col.gameObject.name == "TopConstraint" && direction.y > 0)
+        {
+            flipDir(false);
+        }
     }
 
 
@@ -235,11 +258,12 @@ public class BallMoveTowardsTarget : MonoBehaviour
         targeting = false;
         end = false;
 
-    hit = false;
+        hit = false;
         done = false;
         DoOnce = false;
 
         hits = -1;
 
+        kickoff_player_index = -1;
     }
 }
