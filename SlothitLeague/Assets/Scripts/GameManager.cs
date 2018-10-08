@@ -2,30 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Text[] ui_scores;  //objects that show the scores on the UI
     int[] scores;                       //current score for each player
-
     [SerializeField] int score_to_win;  //number of points needed to win
     [SerializeField] Text win_text;     //text object that displays on game over
-    
     [SerializeField] ResetTransform[] reset_transform;  //objects to reset when goals are scored
-
     [SerializeField] Control[] player_controllers;  //each player's controller
-
     [SerializeField] GameObject ball;
-
     [SerializeField] Color[] player_colours;
+    [SerializeField] KeyCode[] player_buttons;
 
     private void Start()
     {
         //initialise scores to 0
         scores = new int[2] { 0, 0 };
         StartCoroutine(resetObjects());
-        GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
-        score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
+        //GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
+        //score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
+    }
+
+    private void Update()
+    {
+        foreach (KeyCode key in player_buttons)
+        {
+            if (win_text.enabled && Input.GetKeyDown(key))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
     }
 
     /// <summary>
@@ -45,7 +53,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(resetObjects());
+            StartCoroutine(resetObjects(1 - player));
         }
     }
 
@@ -63,25 +71,25 @@ public class GameManager : MonoBehaviour
     /// Sends the players back to the starting positions
     /// </summary>
     /// <returns></returns>
-    IEnumerator resetObjects()
+    IEnumerator resetObjects(int winner = -1)
     {
         ball.GetComponent<BallMoveTowardsTarget>().Reset();
         //disable player movement
-        foreach(Control control in player_controllers)
+        foreach (Control control in player_controllers)
         {
             control.enabled = false;
         }
 
-        foreach(ResetTransform r in reset_transform)
+        foreach (ResetTransform r in reset_transform)
         {
-            r.resetTransform();
+            r.resetTransform(winner);
         }
 
         //wait
         yield return new WaitForSeconds(1.0f);
 
         //reactiveate player movement
-        foreach(Control control in player_controllers)
+        foreach (Control control in player_controllers)
         {
             control.enabled = true;
             control.resetSpeed();
