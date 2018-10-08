@@ -30,6 +30,14 @@ public class BallMoveTowardsTarget : MonoBehaviour
     bool done;
     int hits;
 
+    private Color defualtCol;
+
+    public float aimMaxY;
+    public float aimMinY;
+
+    public float kickoff_dist_modifier;
+
+
     public float normalHitPowerModifier;
 
 	// Use this for initialization
@@ -37,6 +45,8 @@ public class BallMoveTowardsTarget : MonoBehaviour
 	{
 	    Aimer.SetActive(false);
 	    hits = -1;
+
+	    defualtCol = GetComponent<SpriteRenderer>().color;
 	}
 	
 	// Update is called once per frame
@@ -61,14 +71,14 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
 	            if (moverTimer > timeToMoveAim)
 	            {
-	                if (Aimer.transform.position.y <= 3 && !goDown)
+	                if (Aimer.transform.position.y <= aimMaxY && !goDown)
 	                {
 	                    Aimer.transform.position += new Vector3(0, 1, 0);
 	                }
 	                else
 	                {
 	                    goDown = true;
-	                    if (Aimer.transform.position.y >= -3)
+	                    if (Aimer.transform.position.y >= aimMinY)
 	                    {
 	                        Aimer.transform.position -= new Vector3(0, 1, 0);
 	                    }
@@ -132,80 +142,90 @@ public class BallMoveTowardsTarget : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        hits++;
-        if (hits > 1)
+        if (col.gameObject.tag == "Player")
         {
-            hit = true;
-            done = true;
+            GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
 
-            if (col.gameObject.tag == "Player")
+            hits++;
+            if (hits > 1)
             {
-                if (col.gameObject.GetComponent<Control>().GetSpeed() < 1)
+                hit = true;
+                done = true;
+
+                if (col.gameObject.tag == "Player")
                 {
-                    GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
-                                                         normalHitPowerModifier);
+                    if (col.gameObject.GetComponent<Control>().GetSpeed() < 1)
+                    {
+                        GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
+                                                             normalHitPowerModifier);
+                    }
+                    else
+                    {
+                        GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
+                                                             col.gameObject.GetComponent<Control>().GetSpeed() *
+                                                             normalHitPowerModifier);
+                    }
+                }
+            }
+
+            if (col.gameObject.tag == "Player" && !DoOnce)
+            {
+                Stop();
+
+                Debug.Log(col.gameObject.transform.InverseTransformDirection(Vector3.up).ToString());
+
+                hitMoveToDist = col.gameObject.GetComponent<Control>().GetSpeed();
+
+                float dir = col.gameObject.transform.InverseTransformDirection(Vector3.up).x;
+
+                Aimer.SetActive(true);
+
+                if (dir > 0)
+                {
+                    if (col.gameObject.transform.position.x > transform.position.x)
+                    {
+                        Aimer.transform.position =
+                            new Vector2(transform.position.x - (hitMoveToDist * kickoff_dist_modifier),
+                                Aimer.transform.position.y);
+                    }
                 }
                 else
                 {
-                    GetComponent<Rigidbody2D>().AddForce((transform.position - col.transform.position) *
-                                                         col.gameObject.GetComponent<Control>().GetSpeed() *
-                                                         normalHitPowerModifier);
+                    Aimer.transform.position =
+                        new Vector2(transform.position.x + (hitMoveToDist * kickoff_dist_modifier),
+                            Aimer.transform.position.y);
                 }
-            }
-        }
-        if (col.gameObject.tag == "Player" && !DoOnce)
-        {
-            Stop();
 
-            Debug.Log(col.gameObject.transform.InverseTransformDirection(Vector3.up).ToString());
-
-            hitMoveToDist = col.gameObject.GetComponent<Control>().GetSpeed();
-
-            float dir = col.gameObject.transform.InverseTransformDirection(Vector3.up).x;
-
-            Aimer.SetActive(true);
-
-            if (dir > 0)
-            {
-                if (col.gameObject.transform.position.x > transform.position.x)
+                if (Aimer.transform.position.x > RightLimit)
                 {
                     Aimer.transform.position =
-                            new Vector2(transform.position.x - hitMoveToDist, Aimer.transform.position.y);
+                        new Vector2(RightLimit, Aimer.transform.position.y);
                 }
+
+                if (Aimer.transform.position.x < LeftLimit)
+                {
+                    Aimer.transform.position =
+                        new Vector2(LeftLimit, Aimer.transform.position.y);
+                }
+
+                col.gameObject.GetComponent<Control>().SetCanMove(false);
+
+                foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+                    player.GetComponent<Control>().SetCanMove(false);
+
+                targeting = true;
+                SelectEndTimer = 0;
+                moverTimer = 0;
+                end = false;
             }
-            else
-            {
-                Aimer.transform.position =
-                    new Vector2(transform.position.x + hitMoveToDist, Aimer.transform.position.y);
-            }
-
-            if (Aimer.transform.position.x > RightLimit)
-            {
-                Aimer.transform.position =
-                    new Vector2(RightLimit, Aimer.transform.position.y);
-            }
-
-            if (Aimer.transform.position.x < LeftLimit)
-            {
-                Aimer.transform.position =
-                    new Vector2(LeftLimit, Aimer.transform.position.y);
-            }
-
-            col.gameObject.GetComponent<Control>().SetCanMove(false);
-
-            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-                player.GetComponent<Control>().SetCanMove(false);
-
-            targeting = true;
-            SelectEndTimer = 0;
-            moverTimer = 0;
-            end = false;
         }
     }
 
 
     public void Reset()
     {
+        GetComponent<SpriteRenderer>().color = defualtCol;
+
         SelectEndTimer = 0;
         moverTimer = 0;
 
