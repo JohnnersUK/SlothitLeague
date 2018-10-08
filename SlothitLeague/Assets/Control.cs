@@ -26,6 +26,8 @@ public class Control : MonoBehaviour
 
     public bool goalRight;
 
+    bool boostUnavailable = false;
+
     // Use this for initialization
     void Start()
     {
@@ -90,14 +92,15 @@ public class Control : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(buttons[(int)InputType.BUTTON]))
+            if (Input.GetKeyDown(buttons[(int)InputType.BUTTON]))
             {
-                if (noBoosts > 0 && canBoost && CanMove)
+                if (noBoosts > 0 && canBoost && CanMove && !boostUnavailable)
                 {
                     speed += boostForce;
                     noBoosts--;
                     canBoost = false;
                 }
+                boostUnavailable = false;
             }
 
             if (Input.GetKeyUp(buttons[(int)InputType.BUTTON]))
@@ -173,6 +176,11 @@ public class Control : MonoBehaviour
             return 1;
         else
             return 0;
+    }
+
+    public void DisableBoost()
+    {
+        boostUnavailable = true;
     }
 }
 
