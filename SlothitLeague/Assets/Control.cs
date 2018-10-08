@@ -156,5 +156,60 @@ public class Control : MonoBehaviour
             noBoosts++;
             other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
         }
+
+      
     }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == ("Player"))
+        {
+
+            Debug.Log("col");
+            Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+
+            Vector2 dir = other.gameObject.transform.position - transform.position;
+            dir.Normalize();
+
+            rb.velocity = Vector2.zero;
+
+            rb.AddForce(dir * 50 * (1 + speed));
+            speed = -speed;
+            reversing = true;
+        }
+
+        if (other.gameObject.name == "LeftConstraint")
+        {
+            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            speed = -speed;
+            rb.AddForce(Vector2.right * 200);
+            reversing = true;
+        }
+        if (other.gameObject.name == "RightConstraint")
+        {
+            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            speed = -speed;
+            rb.AddForce(Vector2.left * 200);
+            reversing = true;
+        }
+        if (other.gameObject.name == "TopConstraint")
+        {
+            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            speed = -speed;
+            rb.AddForce(Vector2.down * 200);
+            reversing = true;
+        }
+        if (other.gameObject.name == "BottomConstraint")
+        {
+            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+            speed = -speed;
+            rb.AddForce(Vector2.up * 200);
+            reversing = true;
+        }
+    }
+        
+
+      
+    
 }
+    
