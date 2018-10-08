@@ -28,6 +28,9 @@ public class Control : MonoBehaviour
 
     bool boostUnavailable = false;
 
+    public AudioManager audioManager;
+
+
     // Use this for initialization
     void Start()
     {
@@ -99,6 +102,7 @@ public class Control : MonoBehaviour
                     speed += boostForce;
                     noBoosts--;
                     canBoost = false;
+                    audioManager.Play("Boost");
                 }
                 boostUnavailable = false;
             }
@@ -183,4 +187,3 @@ public class Control : MonoBehaviour
         boostUnavailable = true;
     }
 }
-

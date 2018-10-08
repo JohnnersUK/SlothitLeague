@@ -7,20 +7,19 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] Text[] ui_scores;  //objects that show the scores on the UI
     int[] scores;                       //current score for each player
-
     [SerializeField] int score_to_win;  //number of points needed to win
-    [SerializeField] Text win_text;     //text object that displays on game over
-    
+    [SerializeField] Text win_text;     //text object that displays on game over   
     [SerializeField] ResetTransform[] reset_transform;  //objects to reset when goals are scored
-
     [SerializeField] Control[] player_controllers;  //each player's controller
-
     [SerializeField] GameObject ball;
+    [SerializeField] Color[] player_colours;
+    [SerializeField] InputManager input;
 
     float resetTimer;
     bool timerTrigger;
     bool countdownReset;
-   
+
+    int playerScore;
 
     // JS animation
  
@@ -35,19 +34,18 @@ public class GameManager : MonoBehaviour
     {
         //initialise scores to 0
         scores = new int[2] { 0, 0 };
-        GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
-        score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
+        //GameObject scoresToWIn = GameObject.FindGameObjectWithTag("ScoreToWin");
+        //score_to_win = scoresToWIn.GetComponent<ScoreToWin>().score_to_win;
         StartCoroutine(resetObjects());
-        timerTrigger = false;
+        timerTrigger = true;
         countdownReset = false;
-
-        //audioManager.Play("Game Start");
+        playerScore = 0;
     }
 
     private void Awake()
     {
         //starts the "animation + sounds if statements" just after the reset
-        timerTrigger = true;
+        //timerTrigger = true;
         resetTimer = 1.001f;
         // stop player movement
         foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
@@ -72,6 +70,8 @@ public class GameManager : MonoBehaviour
             // stop player movement
             foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
                 player.GetComponent<Control>().SetCanMove(false);
+
+            ball.GetComponent<BallMoveTowardsTarget>().setDirection(Vector2.zero);
        
             
             if(countdownReset == false)
@@ -90,11 +90,13 @@ public class GameManager : MonoBehaviour
 
             // reset object
 
-            // Sets "score" bool to true to trigger the explosion animation
+            // 
             ballAnimator.SetBool("Goal Scored", false);
+
+            Debug.Log("TrueLog");
             sceneAnimator.SetBool("Reset", true);
 
-            StartCoroutine(resetObjects());
+            StartCoroutine(resetObjects(1 - playerScore));
 
             audioManager.Play("Game Start");
 
@@ -105,7 +107,6 @@ public class GameManager : MonoBehaviour
         // start count in
         if (resetTimer > 4)
         {
-
             resetTimer = 0;
             timerTrigger = false;
 
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<Control>().SetCanMove(true);
 
             // stop count in animation
+            Debug.Log("Log");
             sceneAnimator.SetBool("Reset", false);
 
             // turn engine noise back on
@@ -141,8 +143,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-
             timerTrigger = true;
+            playerScore = player;
         }
     }
 
@@ -160,7 +162,7 @@ public class GameManager : MonoBehaviour
     /// Sends the players back to the starting positions
     /// </summary>
     /// <returns></returns>
-    IEnumerator resetObjects()
+    IEnumerator resetObjects(int winner = -1)
     {
         ball.GetComponent<BallMoveTowardsTarget>().Reset();
         //disable player movement
@@ -171,7 +173,8 @@ public class GameManager : MonoBehaviour
 
         foreach (ResetTransform r in reset_transform)
         {
-            r.resetTransform();
+            r.resetTransform(winner);
+            
         }
 
         //wait
@@ -189,6 +192,9 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    
+    public Color getPlayerColour(int i)
+    {
+        return player_colours[i];
+    }
     
 }
