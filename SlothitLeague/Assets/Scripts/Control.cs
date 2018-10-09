@@ -139,6 +139,7 @@ public class Control : MonoBehaviour
         if (other.CompareTag("Pickup") && noBoosts < 3)
         {
             noBoosts++;
+            audioManager.Play("Pickup");
             other.gameObject.transform.localPosition += new Vector3(1000, 1000, 1000);
         }
     }
