@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoostUI : MonoBehaviour {
+public class BoostUI : MonoBehaviour
+{
 
     public GameObject player;
     Control c_script;
@@ -12,8 +13,10 @@ public class BoostUI : MonoBehaviour {
     GameObject b2;
     GameObject b3;
 
+    public Color color;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         c_script = player.GetComponent<Control>();
 
@@ -21,9 +24,9 @@ public class BoostUI : MonoBehaviour {
         b2 = this.transform.GetChild(1).gameObject;
         b3 = this.transform.GetChild(2).gameObject;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         int x = c_script.getBoostCount();
 
@@ -35,20 +38,20 @@ public class BoostUI : MonoBehaviour {
                 b3.GetComponent<Image>().color = new Color(0, 0, 0);
                 break;
             case 1:
-                b1.GetComponent<Image>().color = new Color(255, 255, 255);
+                b1.GetComponent<Image>().color = color;
                 b2.GetComponent<Image>().color = new Color(0, 0, 0);
                 b3.GetComponent<Image>().color = new Color(0, 0, 0);
                 break;
             case 2:
-                b1.GetComponent<Image>().color = new Color(255, 255, 255);
-                b2.GetComponent<Image>().color = new Color(255, 255, 255);
+                b1.GetComponent<Image>().color = color;
+                b2.GetComponent<Image>().color = color;
                 b3.GetComponent<Image>().color = new Color(0, 0, 0);
                 break;
             case 3:
-                b1.GetComponent<Image>().color = new Color(255, 255, 255);
-                b2.GetComponent<Image>().color = new Color(255, 255, 255);
-                b3.GetComponent<Image>().color = new Color(255, 255, 255);
+                b1.GetComponent<Image>().color = color;
+                b2.GetComponent<Image>().color = color;
+                b3.GetComponent<Image>().color = color;
                 break;
         }
-	}
+    }
 }
