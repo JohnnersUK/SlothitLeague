@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿/*
+ * Sends the object to where it needs to go when a player scores a goal
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetTransform : MonoBehaviour
 {
-    int target_index = 0;
-    [SerializeField] Transform[] all_targets;
+    int target_index = 0;                       //target to move to next
+    [SerializeField] Transform[] all_targets;   //all targets object can move to
 
     /// <summary>
-    /// resets the position, rotation, and scale of this object
-    /// to allow for another play
+    /// sends the object to one of its starting positions
     /// </summary>
+    /// <param name="winner">The player who scored, -1 if resetting for another reason</param>
     public void resetTransform(int winner = -1)
     {
         Rigidbody2D rb;

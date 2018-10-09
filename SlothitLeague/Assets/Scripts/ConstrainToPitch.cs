@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+ * keeps the players on the pitch
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +11,7 @@ public class ConstrainToPitch : MonoBehaviour
     [SerializeField] Vector2[] constraints; //constraints of the map
    // [SerializeField] BallMoveTowardsTarget ball;
     [SerializeField] Control[] players;
-    bool stuck = false; //checks whether the ball has been out of bounds for more than two frames
+    //bool stuck = false; //checks whether the ball has been out of bounds for more than two frames
 
     private void Update()
     {

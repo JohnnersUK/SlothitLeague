@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Text[] ui_scores;  //objects that show the scores on the UI
-    int[] scores;                       //current score for each player
-    [SerializeField] int score_to_win;  //number of points needed to win
-    [SerializeField] Text win_text;     //text object that displays on game over   
+    [SerializeField] Text[] ui_scores;                  //objects that show the scores on the UI
+    int[] scores;                                       //current score for each player
+    [SerializeField] int score_to_win;                  //number of points needed to win
+    [SerializeField] Text win_text;                     //text object that displays on game over   
     [SerializeField] ResetTransform[] reset_transform;  //objects to reset when goals are scored
-    [SerializeField] Control[] player_controllers;  //each player's controller
-    [SerializeField] GameObject ball;
-    [SerializeField] Color[] player_colours;
-    [SerializeField] InputManager input;
+    [SerializeField] Control[] player_controllers;      //each player's controller
+    [SerializeField] GameObject ball;                   //the ball
+    [SerializeField] Color[] player_colours;            //each player's team colour
+    [SerializeField] InputManager input;                //the input manager
 
     float resetTimer;
     bool timerTrigger;
@@ -22,14 +22,14 @@ public class GameManager : MonoBehaviour
     int playerScore;
 
     // JS animation
- 
+
     public Animator ballAnimator;
     public Animator sceneAnimator;
 
     //[HideInInspector]
     public AudioManager audioManager;
 
-    
+
     private void Start()
     {
         //initialise scores to 0
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-       
+
         //animation + sound if statements
         // Ball Scored
         if (timerTrigger == true)
@@ -72,9 +72,9 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<Control>().SetCanMove(false);
 
             ball.GetComponent<BallMoveTowardsTarget>().setDirection(Vector2.zero);
-       
-            
-            if(countdownReset == false)
+
+
+            if (countdownReset == false)
             {
                 // Sets "score" bool to true to trigger the explosion animation
                 ballAnimator.SetBool("Goal Scored", true);
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
 
         // reset ball
-            if (resetTimer > 1 && countdownReset == false)
+        if (resetTimer > 1 && countdownReset == false)
         {
 
             // reset object
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             countdownReset = true;
 
         }
-        
+
         // start count in
         if (resetTimer > 4)
         {
@@ -174,20 +174,15 @@ public class GameManager : MonoBehaviour
         foreach (ResetTransform r in reset_transform)
         {
             r.resetTransform(winner);
-            
+
         }
 
-        //wait
-        //yield return new WaitForSeconds(5.0f); // broke
-        
-
-        
-            //reactiveate player movement
-            foreach (Control control in player_controllers)
-            {
-                control.enabled = true;
-                control.resetSpeed();
-            }
+        //enable player movement
+        foreach (Control control in player_controllers)
+        {
+            control.enabled = true;
+            control.resetSpeed();
+        }
 
         yield return null;
     }
@@ -196,5 +191,5 @@ public class GameManager : MonoBehaviour
     {
         return player_colours[i];
     }
-    
+
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//currently not used in the game
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+ * handles collisions between ball and other objects
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

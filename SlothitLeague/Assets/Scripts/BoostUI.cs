@@ -25,7 +25,7 @@ public class BoostUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        int x = c_script.noBoosts;
+        int x = c_script.getBoostCount();
 
         switch (x)
         {

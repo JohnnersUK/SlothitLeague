@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ * Determines whether a goal has been scored
+ * and implements the logic for when scored
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +27,7 @@ public class ScoreGoal : MonoBehaviour
     /// <summary>
     /// Logic for when the ball collides with a goal
     /// </summary>
-    /// <param name="index">The index of the goal</param>
+    /// <param name="index">The index of the player whose goal it is</param>
     void scoreGoal(int index)
     {
         if (player_controllers.Length != 2)

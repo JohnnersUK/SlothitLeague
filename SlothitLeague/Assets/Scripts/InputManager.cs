@@ -1,7 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ * Stores all input keycodes for each player
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//names of the inputs
 public enum InputType
 {
     UP,
@@ -36,6 +41,12 @@ public class InputManager : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Returns the key that maps to a player's action
+    /// </summary>
+    /// <param name="type">The action to check</param>
+    /// <param name="player">The player to check</param>
+    /// <returns></returns>
     public KeyCode getPlayerKey(InputType type, int player)
     {
         switch (player)

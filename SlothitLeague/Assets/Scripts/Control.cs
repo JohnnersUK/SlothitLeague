@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/*
+ * The player script, should just have controls in it
+ * but it has a load more stuff
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,22 +14,19 @@ public class Control : MonoBehaviour
 
     KeyCode[] buttons;
 
-    public float turnspeed;
-    public float acceleration;
-    public float deceleration;
-    public float maxSpeed;
-    public float boostForce;
+    public float turnspeed;     //speed at which the player turns
+    public float acceleration;  //speed at which the player accelerates
+    public float deceleration;  //speed at which the player decelerates
+    public float maxSpeed;      //highest the player's speed can be
+    public float boostForce;    //how much speed is added on boosting
 
-    float speed;
-    //bool reversing = false;
+    float speed;                //current movement speed
     float turnTimer = 0;
     bool canBoost = true;
 
-    public int noBoosts = 1;
+    int noBoosts = 1;           //number of boosts available
 
     private bool CanMove = true;
-
-    public bool goalRight;
 
     bool boostUnavailable = false;
 
@@ -40,10 +42,6 @@ public class Control : MonoBehaviour
         {
             buttons[i] = input.getPlayerKey((InputType)i, index);
         }
-        //Screen.SetResolution(256, 192, true);
-        //Screen.SetResolution(640, 480, true);
-        //Screen.SetResolution(512, 384, true);
-        //Screen.SetResolution(342, 256, true);
         resetSpeed();
     }
 
@@ -180,6 +178,11 @@ public class Control : MonoBehaviour
             return 1;
         else
             return 0;
+    }
+
+    public int getBoostCount()
+    {
+        return noBoosts;
     }
 
     public void DisableBoost()

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//currently not used in the project
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
