@@ -123,6 +123,13 @@ public class GameManager : MonoBehaviour
 
             // reinitilize 
             countdownReset = false;
+
+            //if we have some win text up, clear it
+            win_text.enabled = false;
+
+            //make sure scores are displaying correctly
+            ui_scores[0].text = scores[0].ToString();
+            ui_scores[1].text = scores[1].ToString();
         }
 
     }
@@ -156,6 +163,11 @@ public class GameManager : MonoBehaviour
     {
         win_text.text = "Player " + (winner + 1).ToString() + " wins!";
         win_text.enabled = true;
+
+        //reset the scores
+        scores[0] = 0;
+        scores[1] = 0;
+        timerTrigger = true;
     }
 
     /// <summary>
