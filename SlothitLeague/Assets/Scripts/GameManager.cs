@@ -66,10 +66,9 @@ public class GameManager : MonoBehaviour
         {
             // start timer
             resetTimer += Time.deltaTime;
-
-            // stop player movement
+            
             foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-                player.GetComponent<Control>().SetCanMove(false);
+                player.GetComponent<Control>().slowMo(true);
 
             ball.GetComponent<BallMoveTowardsTarget>().setDirection(Vector2.zero);
 
@@ -91,9 +90,10 @@ public class GameManager : MonoBehaviour
             // reset object
 
             // 
+            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+                player.GetComponent<Control>().SetCanMove(false);
             ballAnimator.SetBool("Goal Scored", false);
 
-            Debug.Log("TrueLog");
             sceneAnimator.SetBool("Reset", true);
 
             StartCoroutine(resetObjects(1 - playerScore));
@@ -112,10 +112,14 @@ public class GameManager : MonoBehaviour
 
             // allow player movement again 
             foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-                player.GetComponent<Control>().SetCanMove(true);
+            {
+                Control control = player.GetComponent<Control>();
+                control.SetCanMove(true);
+                control.slowMo(false);
+            }
+
 
             // stop count in animation
-            Debug.Log("Log");
             sceneAnimator.SetBool("Reset", false);
 
             // turn engine noise back on
@@ -123,13 +127,6 @@ public class GameManager : MonoBehaviour
 
             // reinitilize 
             countdownReset = false;
-
-            //if we have some win text up, clear it
-            win_text.enabled = false;
-
-            //make sure scores are displaying correctly
-            ui_scores[0].text = scores[0].ToString();
-            ui_scores[1].text = scores[1].ToString();
         }
 
     }
@@ -146,7 +143,7 @@ public class GameManager : MonoBehaviour
         //check win conditions
         if (scores[player] >= score_to_win)
         {
-            endGame(player);
+            StartCoroutine(endGame(player));
         }
         else
         {
@@ -159,15 +156,25 @@ public class GameManager : MonoBehaviour
     /// Begin game over state
     /// </summary>
     /// <param name="winner">Which player won</param>
-    void endGame(int winner)
+    IEnumerator endGame(int winner)
     {
+        ball.GetComponent<BallMoveTowardsTarget>().setDirection(Vector2.zero);
         win_text.text = "Player " + (winner + 1).ToString() + " wins!";
         win_text.enabled = true;
+
+        yield return new WaitForSeconds(1.5f);
 
         //reset the scores
         scores[0] = 0;
         scores[1] = 0;
         timerTrigger = true;
+
+        win_text.enabled = false;
+        //make sure scores are displaying correctly
+        ui_scores[0].text = scores[0].ToString();
+        ui_scores[1].text = scores[1].ToString();
+
+        yield return null;
     }
 
     /// <summary>

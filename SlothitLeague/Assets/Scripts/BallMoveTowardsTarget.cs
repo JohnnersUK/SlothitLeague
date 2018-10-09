@@ -247,6 +247,10 @@ public class BallMoveTowardsTarget : MonoBehaviour
         }
     }
 
+    public void SlowMo()
+    {
+        speed *= 0.5f;
+    }
 
     public void Reset()
     {

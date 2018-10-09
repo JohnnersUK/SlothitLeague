@@ -31,6 +31,7 @@ public class Control : MonoBehaviour
     bool boostUnavailable = false;
 
     public AudioManager audioManager;
+    bool slow_motion = false;
 
 
     // Use this for initialization
@@ -115,13 +116,19 @@ public class Control : MonoBehaviour
                 speed -= deceleration * Time.deltaTime;
             }
 
-            this.transform.position += transform.up * speed * Time.deltaTime;
+            float slow = slow_motion ? 0.2f: 1.0f;
+            this.transform.position += transform.up * speed * Time.deltaTime * slow;
         }
     }
 
     public void SetCanMove(bool _canMove)
     {
         CanMove = _canMove;
+    }
+
+    public void slowMo(bool set)
+    {
+        slow_motion = set;
     }
 
     public int GetSpeed()
