@@ -101,13 +101,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03db77db75d05c24b862269de8f20aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Select: 32
+  input: {fileID: 0}
   Aimer: {fileID: 0}
   timeToMoveAim: 0.05
   LeftLimit: -3
   RightLimit: 3
-  speed: 3
+  def_speed: 0
   hit: 0
+  aimMaxY: 0
+  aimMinY: 0
+  kickoff_dist_modifier: 0
   normalHitPowerModifier: 150
 --- !u!114 &114715113038275920
 MonoBehaviour:
@@ -128,6 +131,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   score_manager: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!114 &114913005325966402
 MonoBehaviour:
   m_ObjectHideFlags: 1

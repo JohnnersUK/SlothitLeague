@@ -79,10 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_index: 0
-  player_colours:
-  - {r: 1, g: 0.5019608, b: 0, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
   m_renderer: {fileID: 212946738768754616}
+  game_manager: {fileID: 0}
 --- !u!212 &212946738768754616
 SpriteRenderer:
   m_ObjectHideFlags: 1
