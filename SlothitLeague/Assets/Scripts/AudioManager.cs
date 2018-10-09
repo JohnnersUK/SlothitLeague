@@ -35,8 +35,10 @@ public class AudioManager : MonoBehaviour {
                 Debug.LogWarning("Sound: " + name + " not found!");
                 return;
             }
-
-            s.source.Play();
+            if (s.source)
+            {
+                s.source.Play();
+            }
         }
 		
 	}
@@ -55,11 +57,17 @@ public class AudioManager : MonoBehaviour {
 
             if(mute == true)
             {
-                s.source.Pause();
+                if (s.source)
+                {
+                    s.source.Pause();
+                }
             }
             else
             {
-                s.source.Play();
+                if (s.source)
+                {
+                    s.source.Play();
+                }
             }
             
         }
