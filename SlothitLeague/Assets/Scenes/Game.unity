@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1529,6 +1529,7 @@ GameObject:
   - component: {fileID: 781293446}
   - component: {fileID: 781293445}
   - component: {fileID: 781293447}
+  - component: {fileID: 781293448}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -1570,7 +1571,7 @@ MonoBehaviour:
   input: {fileID: 781293446}
   ballAnimator: {fileID: 248227397}
   sceneAnimator: {fileID: 781293445}
-  audioManager: {fileID: 1898733718}
+  audioManager: {fileID: 781293448}
 --- !u!4 &781293444
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,6 +1660,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &781293448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781293442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d118e6807ea13944bee4514f3fbe11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Ball Hit
+    clip: {fileID: 8300000, guid: fcb6e3e22d286eb4b8671224ff3d32ca, type: 3}
+    volume: 0.553
+    pitch: 1
+    mute: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: cdc683381117eb34ea9740cf59a363a1, type: 3}
+    volume: 0.278
+    pitch: 1
+    mute: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Game Start
+    clip: {fileID: 8300000, guid: e2e198f941dacfc4a8c49cfeabbc7aeb, type: 3}
+    volume: 0.447
+    pitch: 1
+    mute: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: Engine Noise
+    clip: {fileID: 8300000, guid: d7c71207301409c418ba56b9f9b3737f, type: 3}
+    volume: 0.087
+    pitch: 1
+    mute: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: Boost
+    clip: {fileID: 8300000, guid: 730ce3be6b9da074da13710c708b91d8, type: 3}
+    volume: 0.255
+    pitch: 1
+    mute: 0
+    loop: 0
+    source: {fileID: 0}
 --- !u!114 &788364483 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114243804168910372, guid: c6c74e38c2975b740859262ae700ba4f,
@@ -2084,7 +2132,7 @@ Prefab:
         type: 2}
       propertyPath: audioManager
       value: 
-      objectReference: {fileID: 1898733718}
+      objectReference: {fileID: 781293448}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
   m_IsPrefabAsset: 0
@@ -3093,7 +3141,7 @@ Prefab:
         type: 2}
       propertyPath: audioManager
       value: 
-      objectReference: {fileID: 1898733718}
+      objectReference: {fileID: 781293448}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a35bedc453a48047b7f503b9905c21d, type: 2}
   m_IsPrefabAsset: 0
@@ -3584,82 +3632,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 20}
   m_EdgeRadius: 0
---- !u!1 &1898733717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1898733719}
-  - component: {fileID: 1898733718}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1898733718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1898733717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d118e6807ea13944bee4514f3fbe11c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Ball Hit
-    clip: {fileID: 8300000, guid: fcb6e3e22d286eb4b8671224ff3d32ca, type: 3}
-    volume: 0.553
-    pitch: 1
-    mute: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Explosion
-    clip: {fileID: 8300000, guid: cdc683381117eb34ea9740cf59a363a1, type: 3}
-    volume: 0.278
-    pitch: 1
-    mute: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Game Start
-    clip: {fileID: 8300000, guid: e2e198f941dacfc4a8c49cfeabbc7aeb, type: 3}
-    volume: 0.447
-    pitch: 1
-    mute: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Engine Noise
-    clip: {fileID: 8300000, guid: d7c71207301409c418ba56b9f9b3737f, type: 3}
-    volume: 0.087
-    pitch: 1
-    mute: 0
-    loop: 1
-    source: {fileID: 0}
-  - name: Boost
-    clip: {fileID: 8300000, guid: 730ce3be6b9da074da13710c708b91d8, type: 3}
-    volume: 0.255
-    pitch: 1
-    mute: 0
-    loop: 0
-    source: {fileID: 0}
---- !u!4 &1898733719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1898733717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4261323, y: -0.5621271, z: 0.09452152}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1921200404
 GameObject:
   m_ObjectHideFlags: 0
