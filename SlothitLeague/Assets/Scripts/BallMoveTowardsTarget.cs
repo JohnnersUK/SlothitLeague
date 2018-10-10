@@ -151,7 +151,7 @@ public class BallMoveTowardsTarget : MonoBehaviour
             GetComponent<SpriteRenderer>().color = col.gameObject.GetComponent<SpriteRenderer>().color;
 
             hits++;
-            if (hits > 1)
+            if (hits > 0)
             {
                 hit = true;
                 done = true;
